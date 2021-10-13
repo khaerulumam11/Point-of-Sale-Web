@@ -92,6 +92,7 @@ class Search_products extends CI_Controller
         $row_num = $this->input->post('row_num', true);
         $name = $this->input->post('name_startsWith', true);
         $wid = $this->input->post('wid', true);
+        $supplier = $this->input->post('supplier_id', true);
         $qw = '';
         if ($wid > 0) {
             $qw = "(geopos_products.warehouse='$wid' ) AND ";
@@ -104,6 +105,7 @@ class Search_products extends CI_Controller
             $join = 'LEFT JOIN geopos_warehouse ON geopos_warehouse.id=geopos_products.warehouse';
             $qw .= '(geopos_warehouse.loc=0) AND ';
         }
+            $qw .= '(geopos_products.supplier_id='.$supplier.') AND ';
         if ($name) {
             $query = $this->db->query("SELECT geopos_products.pid,geopos_products.product_name,geopos_products.product_code,geopos_products.fproduct_price,geopos_products.taxrate,geopos_products.disrate,geopos_products.product_des,geopos_products.unit FROM geopos_products $join WHERE " . $qw . "UPPER(geopos_products.product_name) LIKE '%" . strtoupper($name) . "%' OR UPPER(geopos_products.product_code) LIKE '" . strtoupper($name) . "%' LIMIT 6");
 

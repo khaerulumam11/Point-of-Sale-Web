@@ -159,7 +159,7 @@ class Products_model extends CI_Model
         return $this->db->count_all_results();
     }
 
-    public function addnew($catid, $warehouse, $product_name, $product_code, $product_price, $factoryprice, $taxrate, $disrate, $product_qty, $product_qty_alert, $product_desc, $image, $unit, $barcode, $v_type, $v_stock, $v_alert, $wdate, $code_type, $w_type = '', $w_stock = '', $w_alert = '', $sub_cat = '', $b_id = '', $serial = '')
+    public function addnew($catid, $warehouse, $product_name, $product_code, $product_price, $factoryprice, $taxrate, $disrate, $product_qty, $product_qty_alert, $product_desc, $image, $unit, $barcode, $v_type, $v_stock, $v_alert, $wdate, $code_type, $w_type = '', $w_stock = '', $w_alert = '', $sub_cat = '', $b_id = '', $serial = '',$supplier_id)
     {
         $ware_valid = $this->valid_warehouse($warehouse);
         if (!$sub_cat) $sub_cat = 0;
@@ -185,6 +185,7 @@ class Products_model extends CI_Model
                         'fproduct_price' => $factoryprice,
                         'taxrate' => $taxrate,
                         'disrate' => $disrate,
+                        'supplier_id'=> $supplier_id,
                         'qty' => $product_qty,
                         'product_des' => $product_desc,
                         'alert' => $product_qty_alert,
@@ -210,6 +211,7 @@ class Products_model extends CI_Model
                         'fproduct_price' => $factoryprice,
                         'taxrate' => $taxrate,
                         'disrate' => $disrate,
+                        'supplier_id'=> $supplier_id,
                         'qty' => $product_qty,
                         'product_des' => $product_desc,
                         'alert' => $product_qty_alert,
@@ -295,6 +297,7 @@ class Products_model extends CI_Model
                     'taxrate' => $taxrate,
                     'disrate' => $disrate,
                     'qty' => $product_qty,
+                    'supplier_id'=> $supplier_id,
                     'product_des' => $product_desc,
                     'alert' => $product_qty_alert,
                     'unit' => $unit,
@@ -318,6 +321,7 @@ class Products_model extends CI_Model
                     'disrate' => $disrate,
                     'qty' => $product_qty,
                     'product_des' => $product_desc,
+                    'supplier_id'=> $supplier_id,
                     'alert' => $product_qty_alert,
                     'unit' => $unit,
                     'image' => $image,
@@ -392,7 +396,7 @@ class Products_model extends CI_Model
         }
     }
 
-    public function edit($pid, $catid, $warehouse, $product_name, $product_code, $product_price, $factoryprice, $taxrate, $disrate, $product_qty, $product_qty_alert, $product_desc, $image, $unit, $barcode, $code_type, $sub_cat = '', $b_id = '', $vari = null, $serial = null)
+    public function edit($pid, $catid, $warehouse, $product_name, $product_code, $product_price, $factoryprice, $taxrate, $disrate, $product_qty, $product_qty_alert, $product_desc, $image, $unit, $barcode, $code_type, $sub_cat = '', $b_id = '', $vari = null, $serial = null, $supplier)
     {
         $this->db->select('qty');
         $this->db->from('geopos_products');
@@ -414,6 +418,7 @@ class Products_model extends CI_Model
                     'disrate' => $disrate,
                     'qty' => $product_qty,
                     'product_des' => $product_desc,
+                    'supplier_id' => $supplier,
                     'alert' => $product_qty_alert,
                     'unit' => $unit,
                     'image' => $image,
@@ -453,6 +458,7 @@ class Products_model extends CI_Model
                 'taxrate' => $taxrate,
                 'disrate' => $disrate,
                 'qty' => $product_qty,
+                'supplier_id' => $supplier,
                 'product_des' => $product_desc,
                 'alert' => $product_qty_alert,
                 'unit' => $unit,

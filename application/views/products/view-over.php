@@ -63,6 +63,7 @@
         <th>No</th>
         <th>Supplier Name</th>
         <th>Stock Quantity</th>
+          <th>Order Date</th>
     </tr>
     </thead>
     <tbody>
@@ -70,10 +71,12 @@
         $no = $this->input->post( 'start' );
       foreach ($supplier as $row) {
         $no++;
+         $newDate = date("d F Y", strtotime($row['expiry']));
           echo '<tr>
           <td>' . $no . '</td>
            <td>' .$row['name'] .'</td>
              <td>' .$row['qty'] . '</td>
+                <td>' .$newDate . '</td>
       </tr>';
       } ?>
     </tbody>
@@ -83,6 +86,7 @@
       <th>No</th>
       <th>Supplier Name</th>
       <th>Stock Quantity</th>
+      <th>Order Date</th>
     </tr>
     </tfoot>
 </table>

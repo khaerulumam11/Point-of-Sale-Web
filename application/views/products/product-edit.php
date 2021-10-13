@@ -96,6 +96,26 @@
                     <div class="form-group row">
 
                         <label class="col-sm-2 col-form-label"
+                               for="product_cat"><?php echo $this->lang->line('Supplier') ?>*</label>
+
+                        <div class="col-sm-6">
+                            <select name="supplier" class="form-control">
+                                <?php
+                                echo '<option value="' . $cate_supp['id'] . '">' . $cat_supp['name'] . ' (S)</option>';
+                                foreach ($supplier as $row) {
+                                    $cid = $row['id'];
+                                    $title = $row['name'];
+                                    echo "<option value='$cid'>$title</option>";
+                                }
+                                ?>
+                            </select>
+
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-2 col-form-label"
                                for="product_code"><?php echo $this->lang->line('Product Code') ?></label>
 
                         <div class="col-sm-6">

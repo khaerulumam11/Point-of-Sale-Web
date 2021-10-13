@@ -698,7 +698,7 @@ $('#productname-0').autocomplete({
             url: baseurl + 'search_products/' + billtype,
             dataType: "json",
             method: 'post',
-            data: 'name_startsWith=' + request.term + '&type=product_list&row_num=1&wid=' + $("#s_warehouses option:selected").val() + '&' + d_csrf,
+            data: 'name_startsWith=' + request.term + '&type=product_list&row_num=1&wid=' + $("#s_warehouses option:selected").val() +'&supplier_id=' + $("#customer_id").val() + '&' + d_csrf,
             success: function (data) {
                 response($.map(data, function (item) {
                     var product_d = item[0];

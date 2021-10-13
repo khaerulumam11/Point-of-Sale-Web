@@ -101,37 +101,36 @@
             <?php }?>
           </tr>
     </table>
-    <hr style="margin-top:-1%">
-    <table id="header" style="margin-top:-6%">
-        <tr>
-            <td style="text-align:center;font-size:9pt">Deskripsi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
-            <td style="text-align:center;font-size:9pt"><?php echo $this->lang->line('Qty') ?>&nbsp;&nbsp;&nbsp;</td>
-            <td style="text-align:center;font-size:9pt">Harga&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td  style="text-align:center;font-size:9pt">Total Harga</td>
-        </tr>
-        <tr>
-            <td colspan="7">
-                <hr style ="margin-top:-2%;margin-bottom:-2%">
-            </td>
-        </tr>
-  </table>
-  <table style="margin-top:-8%">
+    <hr style="margin-top:0%">
+
+  <table style="margin-top:-5%">
+    <tr>
+        <td style="text-align:center;font-size:9pt">Deskripsi</td>
+        <td style="text-align:center;font-size:9pt"><?php echo $this->lang->line('Qty') ?></td>
+        <td style="text-align:center;font-size:9pt">Harga</td>
+        <td  style="text-align:center;font-size:9pt">Total Harga</td>
+    </tr>
+    <tr>
+        <td colspan="7">
+            <hr style ="margin-top:-1%;margin-bottom:1%">
+        </td>
+    </tr>
         <?php
         $this->pheight = 0;
         $totalItem = 0;
         foreach ($products as $row) {
             $this->pheight = $this->pheight + 8;
             $totalItem =  $row['qty'] + $totalItem;
-            echo '<tr style="margin-top:-5%">
+            echo '<tr style="margin-top:-2%">
             <td style="font-size:9pt;style="margin-top:-5%"">' . $row['product'] . '</td>
              <td  style="text-align:center;font-size:9pt;style="margin-top:-5%"">' . +$row['qty'] . ' ' . $row['unit'] . '</td>
                <td style="text-align:center;font-size:9pt;style="margin-top:-5%"">' .amountExchange_new($row['price'], $invoice['multi'], $invoice['loc']) . '</td>
             <td style="text-align:center;font-size:9pt;style="margin-top:-5%"">' . amountExchange_new($row['subtotal'], $invoice['multi'], $invoice['loc']) . '</td>
-        </tr><tr><td colspan="3" style="margin-top:-5%">&nbsp;</td></tr>';
+        </tr>';
         } ?>
     </table>
-    <hr style ="margin-top:-7%">
-    <table class="header_total" style ="margin-top:-8%">
+    <hr style ="margin-top:1%">
+    <table class="header_total" style ="margin-top:-5%">
         <?php if ($invoice['taxstatus'] == 'cgst') {
             $gst = $row['totaltax'] / 2;
             $rate = $row['tax'] / 2;
@@ -182,19 +181,19 @@
           if ($invoice['pmethod'] == "Cash") {
           ?>
           <?php } else if ($invoice['pmethod'] == "Bank") {?>
-            <td style="text-align:center">
+            <td style="text-align:center" colspan="3">
                 <hr>
                 <?php echo $invoice['notes_invoice'];?> - No Rekening: <?php echo $invoice['refer'];?> </hr>
             </td>
           <?php } else if ($invoice['pmethod'] == "EDC Mandiri" || $invoice['pmethod'] == "EDC BCA" || $invoice['pmethod'] == "EDC BNI" ){?>
-            <td style="text-align:center">
+            <td style="text-align:center" colspan="3">
                 <hr>
                 <?php echo $invoice['notes_invoice'];?> - Ref. No : <?php echo $invoice['refer'];?> </hr>
             </td>
             <?php } else { ?>
-              <tdstyle="text-align:center">
+              <td style="text-align:center" colspan="3">
                   <hr>
-                  <?php echo $invoice['notes_invoice'];?></hr>
+                  <?php echo $invoice['notes_invoice'];?>
               </td>
                 <?php }?>
 

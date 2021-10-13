@@ -312,6 +312,11 @@ class Purchase extends CI_Controller
                         $this->db->set('qty', "qty+$amt", FALSE);
                         $this->db->where('pid', $product_id[$key]);
                         $this->db->update('geopos_products');
+
+                        $this->db->set('expiry', $bill_date);
+                        $this->db->where('pid', $product_id[$key]);
+                        $this->db->update('geopos_products');
+
                     }
                     $itc += $amt;
                 }
@@ -555,6 +560,10 @@ class Purchase extends CI_Controller
                 $this->db->set('qty', "qty+$amt", FALSE);
                 $this->db->where('pid', $product_id[$key]);
                 $this->db->update('geopos_products');
+
+                $this->db->set('expiry', $bill_date);
+                $this->db->where('pid', $product_id[$key]);
+                $this->db->update('geopos_products');
             }
             $flag = true;
         }
@@ -597,6 +606,10 @@ class Purchase extends CI_Controller
 
                         $this->db->set('qty', "qty-$dqty", FALSE);
                         $this->db->where('pid', $prid);
+                        $this->db->update('geopos_products');
+
+                        $this->db->set('expiry', $bill_date);
+                        $this->db->where('pid', $product_id[$key]);
                         $this->db->update('geopos_products');
                     }
                 }

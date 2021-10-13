@@ -96,6 +96,26 @@
                     <div class="form-group row">
 
                         <label class="col-sm-2 col-form-label"
+                               for="product_cat"><?php echo $this->lang->line('Supplier') ?>*</label>
+
+                        <div class="col-sm-6">
+                            <select name="supplier" class="form-control">
+                                <?php
+                                echo '<option value="' . $cat_supp['id'] . '">' . $cat_supp['name'] . ' (S)</option>';
+                                foreach ($supplier as $row) {
+                                    $cid = $row['id'];
+                                    $title = $row['name'];
+                                    echo "<option value='$cid'>$title</option>";
+                                }
+                                ?>
+                            </select>
+
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-2 col-form-label"
                                for="product_code"><?php echo $this->lang->line('Product Code') ?></label>
 
                         <div class="col-sm-6">
@@ -234,7 +254,6 @@
                         <div class="col-sm-4">
                             <input type="text" placeholder="BarCode Numeric Digit 123112345671"
                                    class="form-control margin-bottom" name="barcode"
-                                   value="<?php echo $product['barcode'] ?>"
                                    onkeypress="return isNumber(event)">
 
                         </div>
@@ -325,7 +344,7 @@
                             <input type="submit" id="submit-data" class="btn btn-success margin-bottom"
                                    value="Duplicate"
                                    data-loading-text="Updating...">
-                            <input type="hidden" value="products/editproduct" id="action-url">
+                            <input type="hidden" value="products/addproduct" id="action-url">
                         </div>
                     </div>
 <button class="btn btn-pink add_serial btn-sm m-1">   <?php echo $this->lang->line('add_serial') ?></button><div id="added_product"></div>

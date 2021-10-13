@@ -107,8 +107,8 @@
                     <div class="col-sm-2"><label class="col-form-label"
                                                  for="width">Total Rows</label>
                         <select class="form-control" name="total_rows">
-                            <option selected value="0">1</option>
-                            <option value="1">2</option>
+                            <option  selected value="0">1</option>
+                            <option  value="1">2</option>
                             <option value="2">3</option>
                             <option value="3">4</option>
                             <option value="4">5</option>
@@ -149,8 +149,8 @@
                     </div>  <div class="col-sm-2"><label class="col-form-label"
                                                  for="font_size">Font Size</label>
                         <select class="form-control" name="font_size">
-                          <option selected value="6">6pt</option>
-                          <option value="7">7pt</option>
+                          <option  value="6">6pt</option>
+                          <option selected value="7">7pt</option>
                             <option  value="8">8pt</option>
                             <option value="9">9pt</option>
                             <option value="10">10pt</option>

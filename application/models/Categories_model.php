@@ -43,7 +43,7 @@ ORDER BY id DESC");
 
 
         $query = $this->db->query("SELECT id,title
-FROM geopos_warehouse $where 
+FROM geopos_warehouse $where
 
 ORDER BY id DESC");
         return $query->result_array();
@@ -91,12 +91,26 @@ ORDER BY id DESC");
         return $query->result_array();
     }
 
+    public function supplier_list()
+    {
+
+        $query = $this->db->query("SELECT * FROM geopos_supplier");
+        return $query->result_array();
+    }
+
     public function cat_ware($id, $loc = 0)
     {
         $qj = '';
         if ($loc) $qj = "AND w.loc='$loc'";
         $query = $this->db->query("SELECT c.id AS cid, w.id AS wid,c.title AS catt,w.title AS watt FROM geopos_products AS p LEFT JOIN geopos_product_cat AS c ON p.pcat=c.id LEFT JOIN geopos_warehouse AS w ON p.warehouse=w.id WHERE
 p.pid='$id' $qj ");
+        return $query->row_array();
+    }
+
+    public function cat_supp($id)
+    {
+        $query = $this->db->query("SELECT geopos_supplier.id, geopos_supplier.name from geopos_supplier left join geopos_products on geopos_supplier.id = geopos_products.supplier_id where geopos_products.pid
+='$id'");
         return $query->row_array();
     }
 

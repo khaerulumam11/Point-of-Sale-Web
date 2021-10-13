@@ -12,6 +12,7 @@
 {
   margin: 0; size: <?= $style['width'] ?>mm <?= $style['height'] ?>mm;
       font-size: <?= $style['font_size'] ?>pt;
+      font-family: "Calibri";
 }
 
   @page {

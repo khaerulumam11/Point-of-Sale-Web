@@ -63,6 +63,7 @@ class Products extends CI_Controller
         $data['cat'] = $this->categories_model->category_list();
         $data['units'] = $this->products->units();
         $data['warehouse'] = $this->categories_model->warehouse_list();
+          $data['supplier'] = $this->categories_model->supplier_list();
         $data['custom_fields'] = $this->custom->add_fields( 4 );
         $this->load->model( 'units_model', 'units' );
         $data['variables'] = $this->units->variables_list();
@@ -137,6 +138,7 @@ class Products extends CI_Controller
         $image = $this->input->post( 'image' );
         $unit = $this->input->post( 'unit', true );
         $barcode = $this->input->post( 'barcode' );
+        $supplier_id = $this->input->post( 'supplier' );
         $v_type = $this->input->post( 'v_type' );
         $v_stock = $this->input->post( 'v_stock' );
         $v_alert = $this->input->post( 'v_alert' );
@@ -149,7 +151,7 @@ class Products extends CI_Controller
         $brand = $this->input->post( 'brand' );
         $serial = $this->input->post( 'product_serial' );
         if ( $catid ) {
-            $this->products->addnew( $catid, $warehouse, $product_name, $product_code, $product_price, $factoryprice, $taxrate, $disrate, $product_qty, $product_qty_alert, $product_desc, $image, $unit, $barcode, $v_type, $v_stock, $v_alert, $wdate, $code_type, $w_type, $w_stock, $w_alert, $sub_cat, $brand, $serial );
+            $this->products->addnew( $catid, $warehouse, $product_name, $product_code, $product_price, $factoryprice, $taxrate, $disrate, $product_qty, $product_qty_alert, $product_desc, $image, $unit, $barcode, $v_type, $v_stock, $v_alert, $wdate, $code_type, $w_type, $w_stock, $w_alert, $sub_cat, $brand, $serial,$supplier_id );
         }
     }
 
@@ -221,9 +223,11 @@ from geopos_products $whr");
         $data['units'] = $this->products->units();
         $data['serial_list'] = $this->products->serials( $data['product']['pid'] );
         $data['cat_ware'] = $this->categories_model->cat_ware( $pid );
+        $data['cat_supp'] = $this->categories_model->cat_supp( $pid );
         $data['cat_sub'] = $this->categories_model->sub_cat_curr( $data['product']['sub_id'] );
         $data['cat_sub_list'] = $this->categories_model->sub_cat_list( $data['product']['pcat'] );
         $data['warehouse'] = $this->categories_model->warehouse_list();
+        $data['supplier'] = $this->categories_model->supplier_list();
         $data['cat'] = $this->categories_model->category_list();
         $data['custom_fields'] = $this->custom->view_edit_fields( $pid, 4 );
         $head['title'] = 'Edit Product';
@@ -262,9 +266,11 @@ from geopos_products $whr");
         $data['units'] = $this->products->units();
         $data['serial_list'] = $this->products->serials( $data['product']['pid'] );
         $data['cat_ware'] = $this->categories_model->cat_ware( $pid );
+        $data['cat_supp'] = $this->categories_model->cat_supp( $pid );
         $data['cat_sub'] = $this->categories_model->sub_cat_curr( $data['product']['sub_id'] );
         $data['cat_sub_list'] = $this->categories_model->sub_cat_list( $data['product']['pcat'] );
         $data['warehouse'] = $this->categories_model->warehouse_list();
+        $data['supplier'] = $this->categories_model->supplier_list();
         $data['cat'] = $this->categories_model->category_list();
         $data['custom_fields'] = $this->custom->view_edit_fields( $pid, 4 );
         $head['title'] = 'Duplicate Product';
@@ -294,6 +300,7 @@ from geopos_products $whr");
         $image = $this->input->post( 'image' );
         $unit = $this->input->post( 'unit' );
         $barcode = $this->input->post( 'barcode' );
+        $supplier = $this->input->post( 'supplier' );
         $code_type = $this->input->post( 'code_type' );
         $sub_cat = $this->input->post( 'sub_cat' );
         if ( !$sub_cat ) $sub_cat = 0;
@@ -309,7 +316,7 @@ from geopos_products $whr");
         $serial['new'] = $this->input->post( 'product_serial' );
         $serial['old'] = $this->input->post( 'product_serial_e' );
         if ( $pid ) {
-            $this->products->edit( $pid, $catid, $warehouse, $product_name, $product_code, $product_price, $factoryprice, $taxrate, $disrate, $product_qty, $product_qty_alert, $product_desc, $image, $unit, $barcode, $code_type, $sub_cat, $brand, $vari, $serial );
+            $this->products->edit( $pid, $catid, $warehouse, $product_name, $product_code, $product_price, $factoryprice, $taxrate, $disrate, $product_qty, $product_qty_alert, $product_desc, $image, $unit, $barcode, $code_type, $sub_cat, $brand, $vari, $serial,  $supplier );
         }
     }
 
@@ -464,7 +471,7 @@ from geopos_products $whr");
         $query = $this->db->get();
         $data['purchase_list'] = $query->result_array();
 
-        $this->db->select('geopos_products.pid, geopos_products.supplier_id, geopos_products.qty, geopos_supplier.id, geopos_supplier.name');
+        $this->db->select('geopos_products.pid,geopos_products.expiry, geopos_products.supplier_id, geopos_products.qty, geopos_supplier.id, geopos_supplier.name');
         $this->db->from('geopos_products');
         $this->db->join('geopos_supplier', 'geopos_products.supplier_id = geopos_supplier.id');
         $this->db->where( 'geopos_products.pid', $pid );
