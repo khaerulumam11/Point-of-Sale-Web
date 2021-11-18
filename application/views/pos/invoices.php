@@ -43,17 +43,21 @@
                     <thead>
                     <tr>
                         <th><?php echo $this->lang->line('No') ?></th>
-                        <th> #</th>
                         <th><?php echo "Product" ?></th>
                         <th><?php echo $this->lang->line('Customer') ?></th>
                         <th><?php echo $this->lang->line('Date') ?></th>
                         <th><?php echo "Payment Method" ?></th>
+                        <th><?php echo "Qty" ?></th>
                         <th><?php echo "Selling Price" ?></th>
+                        <th><?php echo "Amount Selling Price" ?></th>
                         <th><?php echo "Supplier Price" ?></th>
-                        <th><?php echo $this->lang->line('Amount') ?></th>
-                        <th><?php echo $this->lang->line('Status') ?></th>
-                        <th style="display:none"><?php echo "Referral Number/Rekening Number" ?></th>
-                        <th style="display:none"><?php echo "Notes" ?></th>
+                        <th><?php echo "Amount Supplier Price" ?></th>
+                        <th><?php echo "Admin Marketplace" ?></th>
+                        <th><?php echo "Bebas Ongkir"?></th>
+                        <th><?php echo "Profit"?></th>
+                          <th><?php echo "Status"?></th>
+                        <th><?php echo "Referral Number/Rekening Number" ?></th>
+                        <th><?php echo "Notes" ?></th>
                         <th class="no-sort"><?php echo $this->lang->line('Settings') ?></th>
 
 
@@ -64,20 +68,34 @@
 
                     <tfoot>
                     <tr>
-                        <th><?php echo $this->lang->line('No') ?></th>
-                        <th> #</th>
-                        <th><?php echo "Product" ?></th>
-                        <th><?php echo $this->lang->line('Customer') ?></th>
-                        <th><?php echo $this->lang->line('Date') ?></th>
-                        <th><?php echo "Payment Method" ?></th>
-                        <th><?php echo "Selling Price" ?></th>
-                        <th><?php echo "Supplier Price" ?></th>
-                        <th><?php echo $this->lang->line('Amount') ?></th>
-                        <th><?php echo $this->lang->line('Status') ?></th>
-                        <th style="display:none"><?php echo "Referral Number/Rekening Number" ?></th>
-                        <th style="display:none"><?php echo "Notes" ?></th>
-                        <th class="no-sort"><?php echo $this->lang->line('Settings') ?></th>
-
+                      <?php
+                        $qty = $this->input->post( 'start' );
+                        $sellingPrice = $this->input->post( 'start' );
+                        $supplierPrice = $this->input->post( 'start' );
+                        $adminMarketplace = $this->input->post( 'start' );
+                        $bebasOngkir = $this->input->post( 'start' );
+                        $profit = $this->input->post( 'start' );
+                      foreach ($total_data as $row) {
+                              $qty++;
+                              $sellingPrice +=$row['hargajual'];
+                              $supplierPrice +=$row['hargasupplier'];
+                              $adminMarketplace +=$row['adminDisc'];
+                              $bebasOngkir +=$row['ongkirDisc'];
+                              $profit += ($row['hargajual']-$row['hargasupplier']-$row['adminDisc']-$row['ongkirDisc']);
+                          } ?>
+                      <th colspan="5"><center><?php echo "Total" ?></center></th>
+                      <th><?php echo numberClean($qty) ?></th>
+                      <th><?php echo amountExchange($sellingPrice, 0, $this->aauth->get_user()->loc) ?></th>
+                      <th><?php echo amountExchange($sellingPrice, 0, $this->aauth->get_user()->loc) ?></th>
+                      <th><?php echo amountExchange($supplierPrice, 0, $this->aauth->get_user()->loc) ?></th>
+                      <th><?php echo amountExchange($supplierPrice, 0, $this->aauth->get_user()->loc) ?></th>
+                      <th><?php echo amountExchange($adminMarketplace, 0, $this->aauth->get_user()->loc) ?></th>
+                      <th><?php echo amountExchange($bebasOngkir, 0, $this->aauth->get_user()->loc) ?>></th>
+                      <th><?php echo amountExchange($profit, 0, $this->aauth->get_user()->loc) ?></th>
+                      <th><?php echo "" ?></th>
+                      <th><?php echo "" ?></th>
+                      <th><?php echo "" ?></th>
+                      <th><?php echo "" ?></th>
                     </tr>
                     </tfoot>
                 </table>
@@ -143,7 +161,7 @@
                         extend: 'excelHtml5',
                         footer: true,
                         exportOptions: {
-                            columns: [1, 2, 3, 4, 5,6,7,8,9,10,11]
+                            columns: [1, 2, 3, 4, 5,6,7,8,9,10,11,12,13,14,15]
                         }
                     }
                 ],

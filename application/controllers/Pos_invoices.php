@@ -184,10 +184,11 @@ class Pos_invoices extends CI_Controller
     //invoices list
     public function index()
     {
+      $data['total_data'] = $this->invocies->get_datatable_count($this->limited);
         $head['title'] = "Manage Invoices";
         $head['usernm'] = $this->aauth->get_user()->username;
         $this->load->view('fixed/header', $head);
-        $this->load->view('pos/invoices');
+        $this->load->view('pos/invoices', $data );
         $this->load->view('fixed/footer');
     }
 
@@ -910,15 +911,18 @@ class Pos_invoices extends CI_Controller
             $no++;
             $row = array();
             $row[] = $no;
-            $row[] = '<a href="' . base_url("pos_invoices/view?id=$invoices->id") . '">&nbsp; ' . $invoices->tid . '</a>';
-            $row[] = $invoices->product;
+            $row[] = '<a href="' . base_url("pos_invoices/view?id=$invoices->id") . '"> ' . $invoices->tid . '</a> '.$invoices->product;
             $row[] = $invoices->name;
             $row[] = dateformat($invoices->invoicedate);
             $row[] = $invoices->pmethod;
+            $row[] = $invoices->qty;
                   $row[] = amountExchange($invoices->hargajual, 0, $this->aauth->get_user()->loc);
+                    $row[] = amountExchange($invoices->hargajual, 0, $this->aauth->get_user()->loc);
                   $row[] = amountExchange($invoices->hargasupplier, 0, $this->aauth->get_user()->loc);
-            $row[] = amountExchange($invoices->total, 0, $this->aauth->get_user()->loc);
-
+                    $row[] = amountExchange($invoices->hargasupplier, 0, $this->aauth->get_user()->loc);
+            $row[] = amountExchange($invoices->adminDisc, 0, $this->aauth->get_user()->loc);
+                $row[] = amountExchange($invoices->ongkirDisc, 0, $this->aauth->get_user()->loc);
+                $row[] = amountExchange(($invoices->hargajual-$invoices->hargasupplier-$invoices->adminDisc-$invoices->ongkirDisc), 0, $this->aauth->get_user()->loc);
             $row[] = '<span class="st-' . $invoices->status . '">' . $this->lang->line(ucwords($invoices->status)) . '</span>';
             $row[] = $invoices->refer;
               $row[] = $invoices->notes_invoice;
@@ -938,6 +942,12 @@ class Pos_invoices extends CI_Controller
         //output to json format
         echo json_encode($output);
 
+    }
+
+    public function countTotalInvoices()
+    {
+        $data['total_data'] = $this->invocies->get_datatable_count($this->limited);
+        $this->load->view( 'pos/invoices', $data );
     }
 
     public function extended_ajax_list()

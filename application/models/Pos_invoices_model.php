@@ -212,7 +212,7 @@ class Pos_invoices_model extends CI_Model
 
     private function _get_datatables_query($opt = '')
     {
-        $this->db->select('geopos_invoices.id,geopos_invoices.tid,geopos_invoices.invoicedate,geopos_invoices.invoiceduedate,geopos_invoices.total,geopos_invoices.pmethod,geopos_invoices.notes_invoice,geopos_invoices.refer,geopos_invoices.status,geopos_customers.name, geopos_invoice_items.product,geopos_invoice_items.price as hargajual, geopos_products.fproduct_price as hargasupplier');
+        $this->db->select('geopos_invoices.id,geopos_invoices.tid,geopos_invoices.invoicedate,geopos_invoices.invoiceduedate,geopos_invoices.total,geopos_invoices.pmethod, geopos_invoice_items.qty,geopos_invoices.notes_invoice,geopos_invoices.adminDisc,geopos_invoices.ongkirDisc,geopos_invoices.refer,geopos_invoices.status,geopos_customers.name, geopos_invoice_items.product,geopos_invoice_items.price as hargajual, geopos_products.fproduct_price as hargasupplier');
         $this->db->from($this->table);
         $this->db->where('geopos_invoices.i_class', 1);
         if ($opt) {
@@ -274,6 +274,21 @@ class Pos_invoices_model extends CI_Model
           elseif(!BDATA) { $this->db->where('geopos_invoices.loc', 0); }
         return $query->result();
     }
+
+    function get_datatable_count($opt = '')
+    {
+        $this->_get_datatables_query($opt);
+        if ($_POST['length'] != -1)
+            $this->db->limit($_POST['length'], $_POST['start']);
+
+        $query = $this->db->get();
+        $this->db->where('geopos_invoices.i_class', 1);
+        if ($this->aauth->get_user()->loc) {
+            $this->db->where('geopos_invoices.loc', $this->aauth->get_user()->loc);
+        }
+          elseif(!BDATA) { $this->db->where('geopos_invoices.loc', 0); }
+        return $query->result_array();
+      }
 
     function count_filtered($opt = '')
     {
