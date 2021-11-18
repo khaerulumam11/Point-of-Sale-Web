@@ -175,7 +175,11 @@ var deleteRow = function (num) {
 
 var billUpyog = function () {
     var out = 0;
+    var outAdmin = 0;
+    var outOngkir = 0;
     var disc_val = accounting.unformat($('.discVal').val(), accounting.settings.number.decimal);
+    var admin_val = accounting.unformat($('.adminVal').val(), accounting.settings.number.decimal);
+    var ongkir_val = accounting.unformat($('.ongkirVal').val(), accounting.settings.number.decimal);
     if (disc_val) {
         $("#subttlform").val(accounting.formatNumber(samanYog()));
         var disc_rate = $('#discountFormat').val();
@@ -202,7 +206,29 @@ var billUpyog = function () {
         $('#disc_final').html(0);
         $('#after_disc').val(0);
     }
-    var totalBillVal = accounting.formatNumber(samanYog() + shipTot() - coupon() - out);
+    if (admin_val) {
+        $("#subttlform").val(accounting.formatNumber(samanYog()));
+        outAdmin = precentCalc(accounting.unformat($('#subttlform').val(), accounting.settings.number.decimal), admin_val);
+        outAdmin = parseFloat(outAdmin).toFixed(two_fixed);
+
+        $('#admin_final').html(accounting.formatNumber(outAdmin));
+        $('#after_admin').val(accounting.formatNumber(outAdmin));
+    } else {
+        $('#admin_final').html(0);
+        $('#after_admin').val(0);
+    }
+    if (ongkir_val) {
+        $("#subttlform").val(accounting.formatNumber(samanYog()));
+        outOngkir = accounting.unformat(ongkir_val, accounting.settings.number.decimal);
+        outOngkir = parseFloat(outOngkir).toFixed(two_fixed);
+
+        $('#ongkir_final').html(accounting.formatNumber(outOngkir));
+        $('#after_ongkir').val(accounting.formatNumber(outOngkir));
+    } else {
+        $('#ongkir_final').html(0);
+        $('#after_ongkir').val(0);
+    }
+    var totalBillVal = accounting.formatNumber(samanYog() + shipTot() - coupon() - out - outAdmin - outOngkir);
     $("#mahayog").html(totalBillVal);
     $("#subttlform").val(accounting.formatNumber(samanYog()));
     $("#invoiceyoghtml").val(totalBillVal);

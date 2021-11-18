@@ -52,7 +52,7 @@
                         <input type="hidden" name="total" class="form-control"
                                id="invoiceyoghtml" readonly="">
                         <hr class="mt-1">
-                        <div class="row m-2">
+                        <div class="row m-2" style="display:none">
                             <div class="col-3">
                                 <strong> <?php echo $this->lang->line('Shipping') ?></strong>
                             </div>
@@ -70,7 +70,7 @@
                         </div>
 
 
-                        <div class="row m-2">
+                        <div class="row m-2" style="display:none">
                             <div class="col-3">
                                 <strong> <?php echo $this->lang->line('Total Tax') ?></strong>
                             </div>
@@ -79,7 +79,7 @@
                                 <span id="taxr" class="mr-1">0</span>
                             </div>
                         </div>
-                        <div class="row m-2">
+                        <div class="row m-2" style="display:none">
                             <div class="col-3">
                                 <strong> <?php echo $this->lang->line('Total Discount') ?></strong>
                             </div>
@@ -91,11 +91,11 @@
                             </div>
                         </div>
                         <div class="row m-2">
-                            <div class="col-3">
+                            <div class="col-4">
                                 <strong>   Type Discount</strong>
                             </div>
-                            <div class="col-9">
-                                <select class="form-control teal"
+                            <div class="col-2">
+                                <select class="form-control form-control-sm"
                                         onchange="changeDiscountFormat(this.value)"
                                         id="discountFormat">
 
@@ -105,7 +105,7 @@
                         </div>
 
                         <div class="row m-2">
-                            <div class="col-3">
+                            <div class="col-4">
                                 <strong> <?php echo $this->lang->line('Extra') . ' ' . $this->lang->line('Discount') ?></strong>
                             </div>
                             <div class="col-3">
@@ -117,6 +117,14 @@
                                 <input type="hidden"
                                        name="after_disc" id="after_disc" value="0">
                             </div>
+                            <div class="col-2" style="display:none">
+                                <select class="form-control form-control-sm"
+                                        onchange="changeDiscountFormat(this.value)"
+                                        id="discountFormat">
+
+                                    <?php echo $this->common->disclist() ?>
+                                </select>
+                            </div>
                             <div class="col-4">
                                 ( <?= $this->config->item('currency'); ?>
                                 <span id="disc_final">0</span> )
@@ -124,10 +132,48 @@
                         </div>
 
                         <div class="row m-2">
+                            <div class="col-4">
+                                <strong> Admin Marketplace</strong>
+                            </div>
                             <div class="col-3">
+                                <input type="text" class="form-control form-control-sm adminVal"
+                                       onkeypress="return isNumber(event)"
+                                       placeholder="Value" value="0"
+                                       name="admin_val" autocomplete="off"
+                                       onkeyup="billUpyog()">
+                                <input type="hidden"
+                                       name="after_admin" id="after_admin" value="0">
+                            </div>
+                            <div class="col-4">
+                              (%)  ( <?= $this->config->item('currency'); ?>
+                                <span id="admin_final">0</span> )
+                            </div>
+                        </div>
+
+                        <div class="row m-2">
+                            <div class="col-4">
+                                <strong> Bebas Ongkir</strong>
+                            </div>
+                            <div class="col-3">
+                                <input type="text" class="form-control form-control-sm ongkirVal"
+                                       onkeypress="return isNumber(event)"
+                                       placeholder="Value" value="0"
+                                       name="ongkir_val" autocomplete="off"
+                                       onkeyup="billUpyog()">
+                                <input type="hidden"
+                                       name="after_ongkir" id="after_ongkir" value="0">
+                            </div>
+                            <div class="col-4">
+                                ( <?= $this->config->item('currency'); ?>
+                                <span id="ongkir_final">0</span> )
+                            </div>
+                        </div>
+
+                        <div class="row m-2">
+                            <div class="col-4">
                                 <strong> <?php echo $this->lang->line('Grand Total') ?></strong>
                             </div>
-                            <div class="col-9"><?php echo currency($this->aauth->get_user()->loc);
+                            <div class="col-8"><?php echo currency($this->aauth->get_user()->loc);
                                 ?>
                                 <span class="font-medium-1 blue text-bold-600"
                                       id="bigtotal">0.00</span>
