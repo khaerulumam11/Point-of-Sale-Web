@@ -176,30 +176,21 @@
             <td><?php echo amountExchange_new($invoice['change_amount'], $invoice['multi'], $invoice['loc']) ?></td>
         </tr>
       <?php }?>
-        <tr>
-          <?php
-          if ($invoice['pmethod'] == "Cash") {
-          ?>
-          <?php } else if ($invoice['pmethod'] == "Bank") {?>
-            <td style="text-align:center" colspan="3">
-                <hr>
-                <?php echo $invoice['notes_invoice'];?> - No Rekening: <?php echo $invoice['refer'];?> </hr>
-            </td>
-          <?php } else if ($invoice['pmethod'] == "EDC Mandiri" || $invoice['pmethod'] == "EDC BCA" || $invoice['pmethod'] == "EDC BNI" ){?>
-            <td style="text-align:center" colspan="3">
-                <hr>
-                <?php echo $invoice['notes_invoice'];?> - Ref. No : <?php echo $invoice['refer'];?> </hr>
-            </td>
-            <?php } else { ?>
-              <td style="text-align:center" colspan="3">
-                  <hr>
-                  <?php echo $invoice['notes_invoice'];?>
-              </td>
-                <?php }?>
-
-        </tr>
   </table>
   <hr style ="margin-top:0%">
+    <div style ="margin-top:-3%">
+      <?php
+      if ($invoice['notes_invoice'] == "") {
+      ?>
+      <?php } else {?>
+        <td colspan="3">
+            <label for="" style="font-size:16px">Catatan :</label> <br>
+            <label style="margin-top:2%;margin-bottom:5%"><?php echo $invoice['notes_invoice'];?></label>
+        </td>
+      <?php }?>
+
+  </div>
+  <hr style ="margin-top:2%">
     <div class="text-center" style ="margin-top:-3%">  <strong>HEMAT SPESIAL : <?php echo amountExchange_not_point($invoice['discount'], $invoice['multi'], $invoice['loc']) ?></strong>
   </div>
   <hr style ="margin-top:1%">
