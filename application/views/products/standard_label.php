@@ -72,26 +72,26 @@
 
                     <div class="col-sm-2"><label class="col-form-label"
                                                  for="width">Sheet Width</label>
-                        <input name="width" class="form-control required" type="number" value="103">
+                        <input name="width" class="form-control required" type="number" value="100">
                         <small>in MM</small>
 
                     </div>
                     <div class="col-sm-2"><label class="col-form-label"
                                                  for="width">Sheet Height</label>
-                        <input name="height" class="form-control required" type="number" value="21">
+                        <input name="height" class="form-control required" type="number" value="22">
                         <small>in MM</small>
 
                     </div>
 
                     <div class="col-sm-2"><label class="col-form-label"
                                                  for="width">Label Width</label>
-                        <input name="label_width" class="form-control required" type="number" value="47">
+                        <input name="label_width" class="form-control required" type="number" value="49">
                         <small>in MM</small>
 
                     </div>
                     <div class="col-sm-2"><label class="col-form-label"
                                                  for="width">Label Height</label>
-                        <input name="label_height" class="form-control required" type="number" value="17">
+                        <input name="label_height" class="form-control required" type="number" value="19">
                         <small>in MM</small>
 
                     </div>
@@ -124,7 +124,7 @@
                                                  for="width">Total Cols</label>
                         <select class="form-control" name="items_per_row">
                            <option value="0">1</option>
-                            <option value="1" selected>2</option>
+                            <option selected value="1">2</option>
                             <option value="2">3</option>
                             <option value="3">4</option>
                             <option value="4">5</option>
