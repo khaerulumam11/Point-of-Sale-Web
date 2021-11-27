@@ -178,6 +178,15 @@
             <td><?php echo amountExchange_new($invoice['change_amount'], $invoice['multi'], $invoice['loc']) ?></td>
         </tr>
       <?php }?>
+
+      <?php
+        if ($invoice['total'] !=$invoice['amount']) {
+        ?>
+        <tr>
+            <td>Tagihan</td>
+            <td><?php echo amountExchange_new($invoice['amount']-$invoice['total'], $invoice['multi'], $invoice['loc']) ?></td>
+        </tr>
+      <?php }?>
   </table>
   <hr style ="margin-top:0%">
     <div style ="margin-top:-3%">

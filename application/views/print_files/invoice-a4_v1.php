@@ -8,7 +8,7 @@
             color: #2B2000;
             font-family: 'Helvetica';
             background-image:url(<?php
-            echo FCPATH . 'userfiles/pos_temp/example3.jpg' ?> );
+            echo FCPATH . 'userfiles/pos_temp/background_new.png' ?> );
             background-repeat: no-repeat;
   background-size: contain, cover;
         }
@@ -45,7 +45,7 @@
         }
 
         .subtotal tr td {
-            border: 1px solid #fff;
+            border: 0px solid #fff;
         }
 
         .sign {
@@ -107,8 +107,8 @@
         }
 
         table tr.heading td {
-            background: #515151;
-            color: #FFF;
+            background: #ff8000;
+            color: #000;
             padding: 6pt;
         }
 
@@ -185,14 +185,19 @@
         <tr>
             <td style="width: fit-content;">
             <div>
-                <br><br>
-        <h1>I N V O I C E</h1>
-     
-            <table class="top_sum" style="width:100%; margin-top:8%">
                 
+      
+     
+            <table class="top_sum" style="width:70%; margin-top:8%">
+                <tr>
+                    <td colspan="3" style="font-size: 38px;color:#fff">
+                    <strong><label>I N V O I C E</label></strong>
+                    </td>
+                </tr>
+                <br><br><br><br>
                 <tr>
                     <td style="font-size: small;"><?= $general['title'] ?></td>
-                    <td colspan="3" style="font-size: small;"><?= "INV/" . '' . $invoice['tid'] ?></td>
+                    <td style="font-size: small;"><?= "INV/" . '' . $invoice['tid'] ?></td>
                 </tr>
                 <tr>
                     <td  style="font-size: small;"><?= "Tanggal"?></td>
@@ -214,7 +219,7 @@
             <h3 ><img src="<?php $loc = location($invoice['loc']);
             echo FCPATH . 'userfiles/company/' . $loc['logo'] ?>"
                 style="max-height:70px;"></h3> 
-                <br>
+                <br><br>
                <h3><?php $loc = location($invoice['loc']);
                     echo $loc['cname']; ?></h3> 
                     <h2></h2>
@@ -238,19 +243,19 @@
     <table class="plist" cellpadding="0" cellspacing="0">
         <tr class="heading">
             <td>
-            Deskripsi
+            <strong>Deskripsi</strong>
             </td>
             <td>
-              Kuantitas
+            <strong>Kuantitas</strong>
             </td>
             <td >
-              Harga
+            <strong>Harga</strong>
             </td>
             <td style="text-align: center;">
-              Diskon
+            <strong>Diskon</strong>
             </td>
             <td style="text-align: center;">
-                Jumlah
+            <strong>Jumlah</strong>
             </td>
         </tr>
         <?php
@@ -270,7 +275,7 @@
             if ($row['serial']) $row['product_des'] .= ' - ' . $row['serial'];
             echo '<tr class="item' . $flag . '">
                             <td>' . $row['product'] . '</td>
-                            <td style="width:12%;text-align: center;" >' . +$row['qty'] . $row['unit'] . '</td>
+                            <td style="width:14%;text-align: center;" >' . +$row['qty'] . $row['unit'] . '</td>
 							<td style="width:20%;">' . amountExchange($row['price'], $invoice['multi'], $invoice['loc']) . '</td>
                               ';
                 $cols++;
@@ -333,8 +338,8 @@
         <tr>
             <td class="myco2" rowspan="6" style="width: 50%;">
             <br><br><br>
+            <h3 style="color: #ff8000;">Tagihan Kepada</h3> <br>
             <p>
-            <strong>Tagihan Kepada </strong><br><br>
             <?php echo '<strong>' . $invoice['name'] . '</strong><br>';
                 if ($invoice['company']) echo $invoice['company'] . '<br>';
 
@@ -387,7 +392,7 @@
     echo amountExchange($rming, $invoice['multi'], $invoice['loc']);
     echo '</td>
 		</tr>
-        <tr>
+        <tr style="background:#ff8000">
         <td><strong>Total</strong></td>
         <td><strong>' . amountExchange($invoice['total'], $invoice['multi'], $invoice['loc']) . '</strong></td>
 		</table>';
@@ -397,7 +402,7 @@
         <tr>
             <td style="width: fit-content; font-size:small">
             <hr>
-            <strong>Pesan</strong><br><br>
+            <h2 style="color:#ff8000">Pesan</h2><br>
             <p> <strong>Pembayaran via transfer ke <br> GALUH WISNU PAMBAYUN</strong>
             <br>
             BCA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A/C 433.027.022.1 <br>
@@ -408,7 +413,7 @@
             <td style="width: fit-content;text-align:center">
             <?php 
             echo '
-            <div class="sign"> Hormat Kami</div><div class="sign1"><img src="' . FCPATH . 'userfiles/pos_temp/ttd.png" width="160" height="50" border="0" alt=""></div><div class="sign2">(' . $employee['name'] . ')</div><br>
+            <div class="sign"> Hormat Kami</div><div class="sign1"><img src="' . FCPATH . 'userfiles/pos_temp/ttd.png" width="160" height="60" border="0" alt=""></div><div class="sign2">(' . $employee['name'] . ')</div><br>
             ';
             ?>
             </td>
