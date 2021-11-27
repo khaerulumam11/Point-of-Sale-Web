@@ -39,6 +39,13 @@ function dateformat_time( $input )
     return $date;
 }
 
+function dateformat_invoice( $input )
+ {
+    $date = new DateTime( $input );
+    $date = $date->format( 'd/m/Y' );
+    return $date;
+}
+
 function datefordatabase( $input )
  {
     $date = new DateTime( $input );
