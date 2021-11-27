@@ -1,14 +1,7 @@
+
 <table>
     <tr>
-        <td class="myco">
-            <img src="<?php $loc = location($invoice['loc']);
-            echo FCPATH . 'userfiles/company/' . $loc['logo'] ?>"
-                 class="top_logo">
-        </td>
-        <td>
-
-        </td>
-        <td class="myw">
+    <td class="myw">
             <table class="top_sum">
                 <tr>
                     <td colspan="1" class="t_center"><h2><?= $general['title'] ?></h2><br><br></td>
@@ -35,6 +28,15 @@
 
 
         </td>
+        <td class="myco">
+            <img src="<?php $loc = location($invoice['loc']);
+            echo FCPATH . 'userfiles/company/' . $loc['logo'] ?>"
+                 class="top_logo">
+        </td>
+        <td>
+
+        </td>
+      
     </tr>
 </table>
-<br>
+               

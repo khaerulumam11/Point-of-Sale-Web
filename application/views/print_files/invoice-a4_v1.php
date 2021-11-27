@@ -7,6 +7,10 @@
         body {
             color: #2B2000;
             font-family: 'Helvetica';
+            background-image:url(<?php
+            echo FCPATH . 'userfiles/pos_temp/example3.jpg' ?> );
+            background-repeat: no-repeat;
+  background-size: contain, cover;
         }
 
         .invoice-box {
@@ -41,7 +45,7 @@
         }
 
         .subtotal tr td {
-            border: 1px solid #ddd;
+            border: 1px solid #fff;
         }
 
         .sign {
@@ -177,78 +181,76 @@
 <body dir="<?= LTR ?>">
 <div class="invoice-box">
     <br>
-    <table class="party">
-        <thead>
-        <tr class="heading">
-            <td> <?php echo $this->lang->line('Our Info') ?>:</td>
-            <td><?= $general['person'] ?>:</td>
-        </tr>
-        </thead>
-        <tbody>
+    <table class="">
         <tr>
-            <td><strong><?php $loc = location($invoice['loc']);
-                    echo $loc['cname']; ?></strong><br>
-                <?php echo
-                    $loc['address'] . '<br>' . $loc['city'] . ', ' . $loc['region'] . '<br>' . $loc['country'] . ' -  ' . $loc['postbox'] . '<br>' . $this->lang->line('Phone') . ': ' . $loc['phone'] . '<br> ' . $this->lang->line('Email') . ': ' . $loc['email'];
-                if ($loc['taxid']) echo '<br>' . $this->lang->line('Tax') . ' ID: ' . $loc['taxid'];
-                ?>
+            <td style="width: fit-content;">
+            <div>
+                <br><br>
+        <h1>I N V O I C E</h1>
+     
+            <table class="top_sum" style="width:100%; margin-top:8%">
+                
+                <tr>
+                    <td style="font-size: small;"><?= $general['title'] ?></td>
+                    <td colspan="3" style="font-size: small;"><?= "INV/" . '' . $invoice['tid'] ?></td>
+                </tr>
+                <tr>
+                    <td  style="font-size: small;"><?= "Tanggal"?></td>
+                    <td  style="font-size: small;"><?php echo dateformat_invoice($invoice['invoicedate']) ?></td>
+                </tr>
+                <tr>
+                    <td style="font-size: small;"><?php echo "Tanggal Jatuh Tempo"?></td>
+                    <td style="font-size: small;"><?php echo dateformat_invoice($invoice['invoiceduedate']) ?></td>
+                </tr>
+            </table>
+
+
+        </div>
+
             </td>
-            <td>
-                <?php echo '<strong>' . $invoice['name'] . '</strong><br>';
-                if ($invoice['company']) echo $invoice['company'] . '<br>';
 
-                echo $invoice['address'] . '<br>' . $invoice['city'] . ', ' . $invoice['region'];
-                if ($invoice['country']) echo '<br>' . $invoice['country'];
-                if ($invoice['postbox']) echo ' - ' . $invoice['postbox'];
-                if ($invoice['phone']) echo '<br>' . $this->lang->line('Phone') . ': ' . $invoice['phone'];
-                if ($invoice['email']) echo '<br> ' . $this->lang->line('Email') . ': ' . $invoice['email'];
-
-                if ($invoice['taxid']) echo '<br>' . $this->lang->line('Tax') . ' ID: ' . $invoice['taxid'];
-                if (is_array($c_custom_fields)) {
-                    echo '<br>';
-                    foreach ($c_custom_fields as $row) {
-                        echo $row['name'] . ': ' . $row['data'] . '<br>';
-                    }
-                }
+            <td style="width: fit-content; text-align:right; font-size:14px">
+            <div>
+            <h3 ><img src="<?php $loc = location($invoice['loc']);
+            echo FCPATH . 'userfiles/company/' . $loc['logo'] ?>"
+                style="max-height:70px;"></h3> 
+                <br>
+               <h3><?php $loc = location($invoice['loc']);
+                    echo $loc['cname']; ?></h3> 
+                    <h2></h2>
+                    <h2></h2>
+                    <p for="" style="margin-top:2%">
+                    <?php echo
+                    $loc['address'] . '<br>' . $loc['city'] . ', ' . $loc['region'] . ' ' . $loc['postbox'] . '<br>' . $this->lang->line('Phone') . ': ' . $loc['phone'] . '<br> ';
+               
                 ?>
-                </ul>
+                    </p>
+              
+      </div>
             </td>
-        </tr><?php if (@$invoice['name_s']) { ?>
-            <tr>
-                <td>
-                    <?php echo '<strong>' . $this->lang->line('Shipping Address') . '</strong>:<br>';
-                    echo $invoice['name_s'] . '<br>';
-                    echo $invoice['address_s'] . '<br>' . $invoice['city_s'] . ', ' . $invoice['region_s'];
-                    if ($invoice['country_s']) echo '<br>' . $invoice['country_s'];
-                    if ($invoice['postbox_s']) echo ' - ' . $invoice['postbox_s'];
-                    if ($invoice['phone_s']) echo '<br>' . $this->lang->line('Phone') . ': ' . $invoice['phone_s'];
-                    if ($invoice['email_s']) echo '<br> ' . $this->lang->line('Email') . ': ' . $invoice['email_s'];
-
-                    ?>
-                </td>
-            </tr>
-        <?php } ?>
-        </tbody>
+        </tr>
+    
+      
+      
     </table>
-    <br>
+ 
+    <br><br><br>
     <table class="plist" cellpadding="0" cellspacing="0">
         <tr class="heading">
-            <td style="width: 1rem;">
-                #
+            <td>
+            Deskripsi
             </td>
             <td>
-                <?php echo $this->lang->line('Description') ?>
+              Kuantitas
             </td>
-            <td>
-                <?php echo $this->lang->line('Price') ?>
+            <td >
+              Harga
             </td>
-            <td>
-                <?php echo $this->lang->line('Qty') ?>
+            <td style="text-align: center;">
+              Diskon
             </td>
-            <?php if ($invoice['tax'] > 0) echo '<td>' . $this->lang->line('Tax') . '</td>';
-            if ($invoice['discount'] > 0) echo '<td>' . $this->lang->line('Discount') . '</td>'; ?>
-            <td class="t_center">
-                <?php echo $this->lang->line('SubTotal') ?>
+            <td style="text-align: center;">
+                Jumlah
             </td>
         </tr>
         <?php
@@ -266,18 +268,13 @@
             $sub_t += $row['price'] * $row['qty'];
 
             if ($row['serial']) $row['product_des'] .= ' - ' . $row['serial'];
-            echo '<tr class="item' . $flag . '">  <td>' . $n . '</td>
+            echo '<tr class="item' . $flag . '">
                             <td>' . $row['product'] . '</td>
-							<td style="width:12%;">' . amountExchange($row['price'], $invoice['multi'], $invoice['loc']) . '</td>
-                            <td style="width:12%;" >' . +$row['qty'] . $row['unit'] . '</td>   ';
-            if ($invoice['tax'] > 0) {
-                $cols++;
-                echo '<td style="width:16%;">' . amountExchange($row['totaltax'], $invoice['multi'], $invoice['loc']) . ' <span class="tax">(' . amountFormat_s($row['tax']) . '%)</span></td>';
-            }
-            if ($invoice['discount'] > 0) {
+                            <td style="width:12%;text-align: center;" >' . +$row['qty'] . $row['unit'] . '</td>
+							<td style="width:20%;">' . amountExchange($row['price'], $invoice['multi'], $invoice['loc']) . '</td>
+                              ';
                 $cols++;
                 echo ' <td style="width:16%;">' . amountExchange($row['totaldiscount'], $invoice['multi'], $invoice['loc']) . '</td>';
-            }
             echo '<td class="t_center">' . amountExchange($row['subtotal'], $invoice['multi'], $invoice['loc']) . '</td></tr>';
 
             if ($row['product_des']) {
@@ -334,28 +331,33 @@
 
 
         <tr>
-            <td class="myco2" rowspan="<?php echo $sub_t_col ?>"><br>
-                <p><?php echo '<strong>' . $this->lang->line('Status') . ': ' . $this->lang->line(ucwords($invoice['status'])) . '</strong></p>';
-                    if (!$general['t_type']) {
-                        echo '<br><p>' . $this->lang->line('Total Amount') . ': ' . amountExchange($invoice['total'], $invoice['multi'], $invoice['loc']) . '</p><br><p>';
-                        if (@$round_off['other']) {
-                            $final_amount = round($invoice['total'], $round_off['active'], constant($round_off['other']));
-                            echo '<p>' . $this->lang->line('Round Off') . ' ' . $this->lang->line('Amount') . ': ' . amountExchange($final_amount, $invoice['multi'], $invoice['loc']) . '</p><br><p>';
-                        }
+            <td class="myco2" rowspan="6" style="width: 50%;">
+            <br><br><br>
+            <p>
+            <strong>Tagihan Kepada </strong><br><br>
+            <?php echo '<strong>' . $invoice['name'] . '</strong><br>';
+                if ($invoice['company']) echo $invoice['company'] . '<br>';
 
-                        echo $this->lang->line('Paid Amount') . ': ' . amountExchange($invoice['pamnt'], $invoice['multi'], $invoice['loc']);
-                    }
+                echo $invoice['address'] . '<br>' . $invoice['city'] . ', ' . $invoice['region'];
+                if ($invoice['country']) echo '<br>' . $invoice['country'];
+                if ($invoice['postbox']) echo ' - ' . $invoice['postbox'];
+                if ($invoice['phone']) echo '<br>' . $this->lang->line('Phone') . ': ' . $invoice['phone'];
+                if ($invoice['email']) echo '<br> ' . $this->lang->line('Email') . ': ' . $invoice['email'];
 
-                    if ($general['t_type'] == 1) {
-                        echo '<hr>' . $this->lang->line('Proposal') . ': </br></br><small>' . $invoice['proposal'] . '</small>';
+                if ($invoice['taxid']) echo '<br>' . $this->lang->line('Tax') . ' ID: ' . $invoice['taxid'];
+                if (is_array($c_custom_fields)) {
+                    echo '<br>';
+                    foreach ($c_custom_fields as $row) {
+                        echo $row['name'] . ': ' . $row['data'] . '<br>';
                     }
-                    ?></p>
+                }
+                ?>
+                </p>
             </td>
-            <td><strong><?php echo $this->lang->line('Summary') ?>:</strong></td>
-            <td>&nbsp;</td>
+         
         </tr>
         <tr class="f_summary">
-            <td><?php echo $this->lang->line('SubTotal') ?>:</td>
+            <td ><?php echo "Subtotal" ?></td>
             <td><?php echo amountExchange($sub_t, $invoice['multi'], $invoice['loc']); ?></td>
         </tr>
         <?php if ($invoice['tax'] > 0) {
@@ -364,22 +366,18 @@
             <td>' . amountExchange($invoice['tax'], $invoice['multi'], $invoice['loc']) . '</td>
         </tr>';
         }
-        if ($invoice['discount'] > 0) {
             echo '<tr>
-            <td>' . $this->lang->line('Total Discount') . ':</td>
-            <td>' . amountExchange($invoice['discount'], $invoice['multi'], $invoice['loc']) . '</td>
+            <td>Total Diskon</td>
+            <td>(' . amountExchange($invoice['discount'], $invoice['multi'], $invoice['loc']) . ')</td>
         </tr>';
-        }
-        if ($invoice['shipping'] > 0) {
-            echo '<tr>
-            <td>' . $this->lang->line('Shipping') . ':</td>
-            <td>' . amountExchange($invoice['shipping'], $invoice['multi'], $invoice['loc']) . '</td>
-        </tr>';
-        }
+        echo '<tr>
+        <td>Pembayaran Diterima</td>
+        <td>' . amountExchange($invoice['pamnt'], $invoice['multi'], $invoice['loc']) . '</td>
+    </tr>';
         ?>
         <tr>
-            <td><?php echo $this->lang->line('Balance Due') ?>:</td>
-            <td><strong><?php $rming = $invoice['total'] - $invoice['pamnt'];
+            <td>Sisa Tagihan</td>
+            <td><?php $rming = $invoice['total'] - $invoice['pamnt'];
     if ($rming < 0) {
         $rming = 0;
     }
@@ -387,12 +385,37 @@
         $rming = round($rming, $round_off['active'], constant($round_off['other']));
     }
     echo amountExchange($rming, $invoice['multi'], $invoice['loc']);
-    echo '</strong></td>
+    echo '</td>
 		</tr>
-		</table><br><div class="sign">' . $this->lang->line('Authorized person') . '</div><div class="sign1"><img src="' . FCPATH . 'userfiles/employee_sign/' . $employee['sign'] . '" width="160" height="50" border="0" alt=""></div><div class="sign2">(' . $employee['name'] . ')</div><div class="terms">' . $invoice['notes'] . '<hr><strong>' . $this->lang->line('Terms') . ':</strong><br>';
-
-    echo '<strong>' . $invoice['termtit'] . '</strong><br>' . $invoice['terms'];
-    ?></div>
+        <tr>
+        <td><strong>Total</strong></td>
+        <td><strong>' . amountExchange($invoice['total'], $invoice['multi'], $invoice['loc']) . '</strong></td>
+		</table>';
+    ?>
+    <br><br><br>
+ <table class="">
+        <tr>
+            <td style="width: fit-content; font-size:small">
+            <hr>
+            <strong>Pesan</strong><br><br>
+            <p> <strong>Pembayaran via transfer ke <br> GALUH WISNU PAMBAYUN</strong>
+            <br>
+            BCA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A/C 433.027.022.1 <br>
+            BNI &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A/C 045.785.940.6 <br>
+            MANDIRI &nbsp;&nbsp;&nbsp;&nbsp; A/C 139.001.655.403.6 <br>
+           </p>
+            </td>
+            <td style="width: fit-content;text-align:center">
+            <?php 
+            echo '
+            <div class="sign"> Hormat Kami</div><div class="sign1"><img src="' . FCPATH . 'userfiles/pos_temp/ttd.png" width="160" height="50" border="0" alt=""></div><div class="sign2">(' . $employee['name'] . ')</div><br>
+            ';
+            ?>
+            </td>
+        </tr>
+    </table>    
+</div>
+   
 </div>
 </body>
 </html>
