@@ -394,7 +394,7 @@
 		</tr>
         <tr style="background:#ff8000">
         <td><strong>Total</strong></td>
-        <td><strong>' . amountExchange($invoice['total'], $invoice['multi'], $invoice['loc']) . '</strong></td>
+        <td><strong>' . amountExchange($invoice['total'] , $invoice['multi'], $invoice['loc']) . '</strong></td>
 		</table>';
     ?>
     <br><br><br>

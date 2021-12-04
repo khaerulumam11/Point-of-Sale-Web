@@ -175,21 +175,21 @@
         </tr>
         <tr>
             <td>Kembali</td>
-            <td><?php echo amountExchange_new($invoice['change_amount'], $invoice['multi'], $invoice['loc']) ?></td>
-        </tr>
-      <?php }?>
-
+            <td><?php echo amountExchange_new($invoice['change_amount'] , $invoice['multi'], $invoice['loc']) ?></td>
+            <?php
+        }
+        ?>
       <?php
-        if ($invoice['total'] - $invoice['amount'] < 0 ) {
+        if ($invoice['amount'] - $invoice['total'] < 0 ) {
         ?>
         <tr>
             <td>Tagihan</td>
-            <td><?php echo amountExchange_new($invoice['amount']-$invoice['total'], $invoice['multi'], $invoice['loc']) ?></td>
+            <td><?php echo amountExchange_new($invoice['total']-$invoice['amount'], $invoice['multi'], $invoice['loc']) ?></td>
         </tr>
       <?php }?>
   </table>
   <hr style ="margin-top:0%">
-    <div style ="margin-top:-3%">
+    <div style ="margin-top:1%">
       <?php
       if ($invoice['notes_invoice'] == "") {
       ?>

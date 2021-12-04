@@ -297,6 +297,7 @@ class Pos_invoices extends CI_Controller
                     $amount = $result_c['amount'];
                     $notes .= '-' . $this->input->post('i_coupon');
                     $total_discount += $amount;
+                    $total -= $amount;
                 }
             }
 
