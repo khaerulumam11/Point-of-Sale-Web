@@ -64,8 +64,6 @@ foreach ($products as $lab) {
  if ($style['product_price']) echo '<strong>'.amountExchange_label($lab['product_price'], 0, $this->aauth->get_user()->loc) . ' </strong><br>';
    if ($style['store_name']) echo  substr($style['store'],0,$style['max_char']).'<br>' ;
   if ($style['warehouse_name']) echo    substr($style['warehouse'],0,$style['max_char']);
-if($lab['expiry']) echo '<br>'.$this->lang->line('Expiry Date') . ' ' . dateformat($lab['expiry']) ;
-	echo'</div></div>';
          }
      }
 }

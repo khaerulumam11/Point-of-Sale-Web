@@ -180,7 +180,7 @@
       <?php }?>
 
       <?php
-        if ($invoice['total'] !=$invoice['amount']) {
+        if ($invoice['total'] - $invoice['amount'] < 0 ) {
         ?>
         <tr>
             <td>Tagihan</td>
@@ -198,10 +198,11 @@
             <label for="" style="font-size:16px">Catatan :</label> <br>
             <label style="margin-top:2%;margin-bottom:5%"><?php echo $invoice['notes_invoice'];?></label>
         </td>
+        <hr style ="margin-top:2%">
       <?php }?>
 
   </div>
-  <hr style ="margin-top:2%">
+  
     <div class="text-center" style ="margin-top:-3%">  <strong>HEMAT SPESIAL : <?php echo amountExchange_not_point($invoice['discount'], $invoice['multi'], $invoice['loc']) ?></strong>
   </div>
   <hr style ="margin-top:1%">
