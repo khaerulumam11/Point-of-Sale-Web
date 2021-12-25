@@ -184,7 +184,7 @@ class Pos_invoices extends CI_Controller
     //invoices list
     public function index()
     {
-      $data['total_data'] = $this->invocies->get_datatable_count($this->limited);
+      $data['total_data'] = $this->ajax_list('a');
         $head['title'] = "Manage Invoices";
         $head['usernm'] = $this->aauth->get_user()->username;
         $this->load->view('fixed/header', $head);
@@ -898,10 +898,10 @@ class Pos_invoices extends CI_Controller
     }
 
 
-    public function ajax_list()
+    public function ajax_list($opt='')
     {
 
-        $list = $this->invocies->get_datatables($this->limited);
+        $list = $this->invocies->get_datatable_count($this->limited);
 
         $data = array();
 
@@ -911,27 +911,29 @@ class Pos_invoices extends CI_Controller
             $no++;
             $row = array();
             $row[] = $no;
-            $row[] = '<a href="' . base_url("pos_invoices/view?id=$invoices->id") . '"> ' . $invoices->tid . '</a> '.$invoices->product;
-            $row[] = $invoices->name;
-            $row[] = dateformat($invoices->invoicedate);
-            $row[] = $invoices->pmethod;
-            $row[] = $invoices->qty;
-                  $row[] = amountExchange($invoices->hargajual, 0, $this->aauth->get_user()->loc);
-                    $row[] = amountExchange($invoices->hargajual, 0, $this->aauth->get_user()->loc);
-                  $row[] = amountExchange($invoices->hargasupplier, 0, $this->aauth->get_user()->loc);
-                    $row[] = amountExchange($invoices->hargasupplier, 0, $this->aauth->get_user()->loc);
-            $row[] = amountExchange($invoices->adminDisc, 0, $this->aauth->get_user()->loc);
-                $row[] = amountExchange($invoices->ongkirDisc, 0, $this->aauth->get_user()->loc);
-                $row[] = amountExchange(($invoices->hargajual-$invoices->hargasupplier-$invoices->adminDisc-$invoices->ongkirDisc), 0, $this->aauth->get_user()->loc);
-            $row[] = '<span class="st-' . $invoices->status . '">' . $this->lang->line(ucwords($invoices->status)) . '</span>';
-            $row[] = $invoices->refer;
-              $row[] = $invoices->notes_invoice;
-            $row[] = '<a href="' . base_url("pos_invoices/view?id=$invoices->id") . '" class="btn btn-success btn-sm" title="View"><i class="fa fa-eye"></i></a>&nbsp;<a href="' . base_url("pos_invoices/thermal_pdf?id=$invoices->id") . '&d=1" class="btn btn-info btn-sm"  title="Download"><span class="fa fa-download"></span></a>&nbsp;<a href="#" data-object-id="' . $invoices->id . '" class="btn btn-danger btn-sm delete-object"><span class="fa fa-trash"></span></a>';
+            $row[] = '<a href="' . base_url("pos_invoices/view?id=".$invoices['id'].'"') . '"> ' . $invoices['tid'] . '</a> '.$invoices['product'];
+            $row[] = $invoices['name'];
+            $row[] = dateformat($invoices['invoicedate']);
+            $row[] = $invoices['pmethod'];
+            $row[] = $invoices['qty'];
+                  $row[] = amountExchange($invoices['hargajual'], 0, $this->aauth->get_user()->loc);
+                    $row[] = amountExchange($invoices['hargajual'], 0, $this->aauth->get_user()->loc);
+                  $row[] = amountExchange($invoices['hargasupplier'], 0, $this->aauth->get_user()->loc);
+                    $row[] = amountExchange($invoices['hargasupplier'], 0, $this->aauth->get_user()->loc);
+            $row[] = amountExchange($invoices['adminDisc'], 0, $this->aauth->get_user()->loc);
+                $row[] = amountExchange($invoices['ongkirDisc'], 0, $this->aauth->get_user()->loc);
+                $row[] = amountExchange(($invoices['hargajual']-$invoices['hargasupplier']-$invoices['adminDisc']-$invoices['ongkirDisc']), 0, $this->aauth->get_user()->loc);
+            $row[] = '<span class="st-' . $invoices['status'] . '">' . $this->lang->line(ucwords($invoices['status'])) . '</span>';
+            $row[] = $invoices['refer'];
+              $row[] = $invoices['notes_invoice'];
+            $row[] = '<a href="' . base_url("pos_invoices/view?id=".$invoices['id'].'"') . '" class="btn btn-success btn-sm" title="View"><i class="fa fa-eye"></i></a>&nbsp;<a href="' . base_url("pos_invoices/thermal_pdf?id=".$invoices['id'].'"') . '&d=1" class="btn btn-info btn-sm"  title="Download"><span class="fa fa-download"></span></a>&nbsp;<a href="#" data-object-id="' . $invoices['id'] . '" class="btn btn-danger btn-sm delete-object"><span class="fa fa-trash"></span></a>';
 
             $data[] = $row;
         }
 
-
+        // if ($opt == 'a') {
+        //   return $list;
+        // } else {
         $output = array(
             "draw" => $this->input->post('draw'),
             "recordsTotal" => $this->invocies->count_all($this->limited),
@@ -941,6 +943,7 @@ class Pos_invoices extends CI_Controller
 
         //output to json format
         echo json_encode($output);
+        // }
 
     }
 

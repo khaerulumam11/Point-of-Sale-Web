@@ -24,6 +24,16 @@
                 <div class="row">
 
                     <div class="col-md-2"><?php echo $this->lang->line('Invoice Date') ?></div>
+                      <div class="col-md-2">
+                    <select class="form-control form-control-sm" name="p_method" id="p_method">
+                        <option value='Store Pick Up'>Store Pick Up</option>
+                        <option value='Tokopedia'>Tokopedia</option>
+                        <option value='Lazada'>Lazada</option>
+                        <option value='Shopee'>Shopee</option>
+                        <option value='Blibli'>Blibli</option>
+
+                    </select>
+                  </div>
                     <div class="col-md-2">
                         <input type="text" name="start_date" id="start_date"
                                class="date30 form-control form-control-sm" autocomplete="off"/>
@@ -131,17 +141,18 @@
 <script type="text/javascript">
     $(document).ready(function () {
         draw_data();
+        // draw_data_p();
 
-        function draw_data(start_date = '', end_date = '') {
+        function draw_data(start_date = '', end_date = '', pmethod = '') {
             $('#invoices').DataTable({
                 'processing': true,
                 'serverSide': true,
                 'stateSave': true,
-                responsive: true,
+                'responsive': true,
                 <?php datatable_lang();?>
                 'order': [],
                 'ajax': {
-                    'url': "<?php echo site_url('pos_invoices/ajax_list')?>",
+                    'url': "<?php echo site_url("pos_invoices/ajax_list")?>",
                     'type': 'POST',
                     'data': {
                         '<?=$this->security->get_csrf_token_name()?>': crsf_hash,
@@ -168,15 +179,53 @@
             });
         }
 
+        // function draw_data_p(p_method = '') {
+        //     $('#invoices').DataTable({
+        //         'processing': true,
+        //         'serverSide': true,
+        //         'stateSave': true,
+        //         'responsive': true,
+        //         <?php datatable_lang();?>
+        //         'order': [],
+        //         'ajax': {
+        //             'url': "<?php echo site_url('pos_invoices/ajax_list')?>",
+        //             'type': 'POST',
+        //             'data': {
+        //                 '<?=$this->security->get_csrf_token_name()?>': crsf_hash,
+        //                 pmethod: p_method
+        //             }
+        //         },
+        //         'columnDefs': [
+        //             {
+        //                 'targets': [0],
+        //                 'orderable': false,
+        //             },
+        //         ],
+        //         dom: 'Blfrtip',
+        //         buttons: [
+        //             {
+        //                 extend: 'excelHtml5',
+        //                 footer: true,
+        //                 exportOptions: {
+        //                     columns: [1, 2, 3, 4, 5,6,7,8,9,10,11,12,13,14,15]
+        //                 }
+        //             }
+        //         ],
+        //     });
+        // }
+
         $('#search').click(function () {
             var start_date = $('#start_date').val();
             var end_date = $('#end_date').val();
-            if (start_date != '' && end_date != '') {
+            var pmethod = $('#p_method').val();
+            if (start_date != '' && end_date != '' && pmethod != '') {
                 $('#invoices').DataTable().destroy();
-                draw_data(start_date, end_date);
+                draw_data(start_date, end_date,pmethod);
             } else {
                 alert("Date range is Required");
             }
         });
+
+
     });
 </script>

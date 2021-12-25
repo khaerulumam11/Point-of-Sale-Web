@@ -223,6 +223,12 @@ class Pos_invoices_model extends CI_Model
             $this->db->where('DATE(geopos_invoices.invoicedate) >=', datefordatabase($this->input->post('start_date')));
             $this->db->where('DATE(geopos_invoices.invoicedate) <=', datefordatabase($this->input->post('end_date')));
         }
+
+        if ($this->input->post('pmethod')) // if datatable send POST for search
+        {
+            $this->db->where('geopos_invoices.pmethod ==',$this->input->post('pmethod'));
+        }
+
         if ($this->aauth->get_user()->loc) {
             $this->db->where('geopos_invoices.loc', $this->aauth->get_user()->loc);
         }
