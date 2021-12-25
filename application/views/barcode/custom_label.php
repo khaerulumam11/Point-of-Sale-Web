@@ -56,7 +56,7 @@ switch ($style['b_type']){
 foreach ($products as $lab) {
      for ($i = 0; $i <= $style['total_rows']; $i++) {
          for ($z = 0; $z <= $style['items_per_row']; $z++) {
-             echo '<div style=" margin-left: 1%; margin-top:3%;width:'.$style['label_width'].'mm;height:'.$style['label_height'].'mm;display: inline-block"><div style="margin-left:5%">';
+             echo '<div style=" margin-right: 2%; margin-top:1%;width:'.$style['label_width'].'mm;height:'.$style['label_height'].'mm;display: inline-block"><div style="margin-left:10%">';
              if ($style['product_name'])  echo substr($lab['product_name'],0,$style['max_char']);
              	if ($style['product_code']) echo  '<br>'.$lab['product_code'] ;
 	echo'<br><img src="data:image/png;base64,' . base64_encode($generator->getBarcode($lab['barcode'] , $t)) . '" style=" margin: 0;width:'.$style['bar_width'].'mm;height:'.$style['bar_height'].'mm;"><br>';
@@ -64,8 +64,6 @@ foreach ($products as $lab) {
  if ($style['product_price']) echo '<strong>'.amountExchange_label($lab['product_price'], 0, $this->aauth->get_user()->loc) . ' </strong><br>';
    if ($style['store_name']) echo  substr($style['store'],0,$style['max_char']).'<br>' ;
   if ($style['warehouse_name']) echo    substr($style['warehouse'],0,$style['max_char']);
-if($lab['expiry']) echo '<br>'.$this->lang->line('Expiry Date') . ' ' . dateformat($lab['expiry']) ;
-	echo'</div></div>';
          }
      }
 }

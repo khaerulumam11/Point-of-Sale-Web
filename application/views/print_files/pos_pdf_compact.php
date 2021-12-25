@@ -75,7 +75,9 @@
         <?php } ?>
         <tr>
             <td>Tanggal / Waktu</td>
-            <td><?php echo dateformat($invoice['invoicedate']) . ' ' . date('H:i:s') ?><br></td>
+            <td><?php 
+            $d=strtotime("+7 hour");
+            echo dateformat($invoice['invoicedate']) . ' ' . date('H:i:s',$d) ?><br></td>
         </tr>
         <tr>
             <td><?php echo $this->lang->line('Customer') ?></td>
@@ -173,12 +175,21 @@
         </tr>
         <tr>
             <td>Kembali</td>
-            <td><?php echo amountExchange_new($invoice['change_amount'], $invoice['multi'], $invoice['loc']) ?></td>
+            <td><?php echo amountExchange_new($invoice['change_amount'] , $invoice['multi'], $invoice['loc']) ?></td>
+            <?php
+        }
+        ?>
+      <?php
+        if ($invoice['amount'] - $invoice['total'] < 0 ) {
+        ?>
+        <tr>
+            <td>Tagihan</td>
+            <td><?php echo amountExchange_new($invoice['total']-$invoice['amount'], $invoice['multi'], $invoice['loc']) ?></td>
         </tr>
       <?php }?>
   </table>
   <hr style ="margin-top:0%">
-    <div style ="margin-top:-3%">
+    <div style ="margin-top:1%">
       <?php
       if ($invoice['notes_invoice'] == "") {
       ?>
@@ -187,10 +198,11 @@
             <label for="" style="font-size:16px">Catatan :</label> <br>
             <label style="margin-top:2%;margin-bottom:5%"><?php echo $invoice['notes_invoice'];?></label>
         </td>
+        <hr style ="margin-top:2%">
       <?php }?>
 
   </div>
-  <hr style ="margin-top:2%">
+  
     <div class="text-center" style ="margin-top:-3%">  <strong>HEMAT SPESIAL : <?php echo amountExchange_not_point($invoice['discount'], $invoice['multi'], $invoice['loc']) ?></strong>
   </div>
   <hr style ="margin-top:1%">

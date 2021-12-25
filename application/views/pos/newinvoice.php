@@ -230,7 +230,7 @@
                                     <div class="input-group">
 
                                         <input type="text" class="form-control"
-                                               id="coupon" name="coupon"><input type="hidden"
+                                               id="coupon" name="coupon"><input type="text"
                                                                                 name="coupon_amount"
                                                                                 id="coupon_amount"
                                                                                 value="0"><span

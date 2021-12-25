@@ -379,6 +379,43 @@ class Transactions extends CI_Controller
             $this->db->where('pid', $prd['pid']);
             $this->db->update('geopos_products');
         }
+        $this->db->select('subtotal,pmethod');
+        $this->db->from('geopos_invoices');
+        $this->db->where('id', $tid);
+        $query = $this->db->get();
+        $subtotalresult = $query->result_array();
+        $subtotal =0;
+        $paymentMethod="";
+        foreach ($subtotalresult as $ab) {
+            $subtotal = $ab['subtotal'];
+            $paymentMethod = $ab['pmethod'];
+        }
+
+        $this->db->select('o_date, cash, bank, card');
+        $this->db->from('geopos_register');
+        $this->db->where('active', 1);
+        $query = $this->db->get();
+        $dateresult = $query->result_array();
+        foreach ($dateresult as $prd) {
+            if($paymentMethod == 'Cash'){
+                $amt = $prd['cash'];
+                $this->db->set('cash', $amt - $subtotal, FALSE);
+                $this->db->where('active', 1);
+                $this->db->update('geopos_register');
+            } else if($paymentMethod == 'EDC BCA' || $paymentMethod == 'EDC Mandiri' ||$paymentMethod == 'EDC BNI' ){
+                $amt = $prd['card'];
+                $this->db->set('card', $amt - $subtotal, FALSE);
+                $this->db->where('active', 1);
+                $this->db->update('geopos_register');
+            } else {
+                $amt = $prd['bank'];
+                $this->db->set('bank', $amt - $subtotal, FALSE);
+                $this->db->where('active', 1);
+                $this->db->update('geopos_register');
+            }
+        }
+
+       
         $this->db->delete('geopos_transactions', array('tid' => $tid));
         $data = array('type' => 9, 'rid' => $tid);
         $this->db->delete('geopos_metadata', $data);

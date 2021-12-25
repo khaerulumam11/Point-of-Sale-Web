@@ -297,6 +297,7 @@ class Pos_invoices extends CI_Controller
                     $amount = $result_c['amount'];
                     $notes .= '-' . $this->input->post('i_coupon');
                     $total_discount += $amount;
+                    $total -= $amount;
                 }
             }
 
@@ -1047,15 +1048,16 @@ class Pos_invoices extends CI_Controller
         }
         //PDF Rendering
         $this->load->library('pdf');
-        if (INVV == 1) {
-            $header = $this->load->view('print_files/invoice-header_v' . INVV, $data, true);
-            $pdf = $this->pdf->load_split(array('margin_top' => 40));
-            $pdf->SetHTMLHeader($header);
-        }
-        if (INVV == 2) {
-            $pdf = $this->pdf->load_split(array('margin_top' => 5));
-        }
-        $pdf->SetHTMLFooter('<div style="text-align: right;font-family: serif; font-size: 8pt; color: #5C5C5C; font-style: italic;margin-top:-6pt;">{PAGENO}/{nbpg} #' . $data['invoice']['tid'] . '</div>');
+        $pdf = $this->pdf->load_split(array('margin_top' => 5));
+        // if (INVV == 1) {
+        //     $header = $this->load->view('print_files/invoice-header_v' . INVV, $data, true);
+        //     $pdf = $this->pdf->load_split(array('margin_top' => 40));
+        //     $pdf->SetHTMLHeader($header);
+        // }
+        // if (INVV == 2) {
+        //     $pdf = $this->pdf->load_split(array('margin_top' => 5));
+        // }
+        $pdf->SetHTMLFooter('<div style="text-align: right;font-family: serif; font-size: 8pt; color: #fff; font-style: italic;margin-top:-6pt;">{PAGENO}/{nbpg} #' . $data['invoice']['tid'] . '</div>');
         $pdf->WriteHTML($html);
         if ($this->input->get('d')) {
             $pdf->Output('Invoice_pos' . $data['invoice']['tid'] . '.pdf', 'D');

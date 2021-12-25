@@ -66,6 +66,7 @@ class Search_products extends CI_Controller
             $qw .= '(geopos_product_serials.status=0) AND ';
         }
 
+        
         if ($name) {
 
             if ($billing_settings['key1'] == 2) {
