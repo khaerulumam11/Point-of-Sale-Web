@@ -471,9 +471,11 @@ from geopos_products $whr");
         $query = $this->db->get();
         $data['purchase_list'] = $query->result_array();
 
-        $this->db->select('geopos_products.pid,geopos_products.expiry, geopos_products.supplier_id, geopos_products.qty, geopos_supplier.id, geopos_supplier.name');
-        $this->db->from('geopos_products');
-        $this->db->join('geopos_supplier', 'geopos_products.supplier_id = geopos_supplier.id');
+        $this->db->select('geopos_purchase.id, geopos_purchase.invoicedate,geopos_purchase_items.id, geopos_purchase_items.tid, geopos_purchase_items.pid, geopos_purchase_items.product, geopos_purchase_items.qty, geopos_products.pid, geopos_products.supplier_id, geopos_supplier.id, geopos_supplier.name');
+        $this->db->from('geopos_purchase_items');
+        $this->db->join('geopos_purchase', 'geopos_purchase.id = geopos_purchase_items.tid');
+        $this->db->join('geopos_products', 'geopos_purchase_items.pid = geopos_products.pid');
+        $this->db->join('geopos_supplier', 'geopos_products.supplier_id = geopos_supplier.id','left');
         $this->db->where( 'geopos_products.pid', $pid );
         $query = $this->db->get();
         $data['supplier'] = $query->result_array();

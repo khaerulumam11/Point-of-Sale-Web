@@ -28,6 +28,7 @@
         <th>Customer Name</th>
         <th>Purchase Date</th>
         <th>Payment Method</th>
+        <th>Status</th>
     </tr>
     </thead>
     <tbody>
@@ -39,8 +40,16 @@
           <td>' . $no . '</td>
            <td>' .$row['name'] .'</td>
              <td>' .$row['invoicedate'] . '</td>
-          <td>' . $row['pmethod'] . '</td>
-      </tr>';
+          <td>' . $row['pmethod'] . '</td>';
+          if ($row['status'] == "paid") {
+            echo '<td>Paid</td></tr>';
+          } else if ($row['status'] == "partial") {
+              echo '<td>Partial</td></tr>';
+          }else if ($row['status'] == "due") {
+              echo '<td>Due</td></tr>';
+          } else {
+              echo '<td>Cancel</td></tr>';
+          }
       } ?>
     </tbody>
 
@@ -50,6 +59,7 @@
         <th>Customer Name</th>
         <th>Purchase Date</th>
         <th>Payment Method</th>
+        <th>Status</th>
     </tr>
     </tfoot>
 </table>
@@ -71,7 +81,7 @@
         $no = $this->input->post( 'start' );
       foreach ($supplier as $row) {
         $no++;
-         $newDate = date("d F Y", strtotime($row['expiry']));
+         $newDate = date("d F Y", strtotime($row['invoicedate']));
           echo '<tr>
           <td>' . $no . '</td>
            <td>' .$row['name'] .'</td>

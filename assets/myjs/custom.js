@@ -38,7 +38,7 @@ $('#addproduct').on('click', function () {
         select: function (event, ui) {
             var t_r = ui.item.data[3];
             if ($("#taxformat option:selected").attr('data-trate')) {
-    
+
                 t_r = $("#taxformat option:selected").attr('data-trate');
             }
             var discount = ui.item.data[4];
@@ -55,10 +55,10 @@ $('#addproduct').on('click', function () {
             $('#alert-'+ cvalue).val(ui.item.data[8]);
             $('#serial-'+ cvalue).val(ui.item.data[10]);
             rowTotal(cvalue);
-    
+
             billUpyog();
-    
-    
+
+
         },
         create: function (e) {
             $(this).prev('.ui-helper-hidden-accessible').remove();
@@ -868,11 +868,17 @@ $('#saman-row-pos').on('click', '.removeItem', function () {
 $(document).on('click', ".quantity-up", function (e) {
     var spinner = $(this);
     var input = spinner.closest('.quantity').find('input[name="product_qty[]"]');
+    var inputAlert = spinner.closest('.quantity').find('input[name="alert[]"]');
     var oldValue = accounting.unformat(input.val(), accounting.settings.number.decimal);
+    var alertValue = accounting.unformat(inputAlert.val(), accounting.settings.number.decimal);
 
     var newVal = oldValue + 1;
+    if (newVal > alertValue) {
+      $('#stock_alert').modal('toggle');
+    } else {
     spinner.closest('.quantity').find('input[name="product_qty[]"]').val(accounting.formatNumber(newVal));
     spinner.closest('.quantity').find('input[name="product_qty[]"]').trigger("change");
+   }
     var id_arr = $(input).attr('id');
     id = id_arr.split("-");
     rowTotal(id[1]);

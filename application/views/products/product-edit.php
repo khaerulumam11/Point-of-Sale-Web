@@ -101,7 +101,7 @@
                         <div class="col-sm-6">
                             <select name="supplier" class="form-control">
                                 <?php
-                                echo '<option value="' . $cate_supp['id'] . '">' . $cat_supp['name'] . ' (S)</option>';
+                                echo '<option value="' . $cat_supp['id'] . '">' . $cat_supp['name'] . ' (S)</option>';
                                 foreach ($supplier as $row) {
                                     $cid = $row['id'];
                                     $title = $row['name'];
