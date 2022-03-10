@@ -505,6 +505,29 @@ class Reports extends CI_Controller
         }
     }
 
+
+    public function custompaymentmethod()
+    {
+
+        if ($this->input->post('check')) {
+            $lid = $this->input->post('pay_method');
+            $sdate = datefordatabase($this->input->post('sdate'));
+            $edate = datefordatabase($this->input->post('edate'));
+
+            $date1 = new DateTime($sdate);
+            $date2 = new DateTime($edate);
+
+            $diff = $date2->diff($date1)->format("%a");
+            if ($diff < 365) {
+                $income = $this->reports->custompaymentmethodstatement($lid, $sdate, $edate);
+
+                echo json_encode(array('status' => 'Success', 'message' => 'Calculated', 'param1' => '<hr> Sales between the dates is ' . amountExchange($income['total'], 0, $this->aauth->get_user()->loc) . ''));
+            } else {
+                echo json_encode(array('status' => 'Error', 'message' => 'Date range should be within 365 days', 'param1' => ''));
+            }
+        }
+    }
+
     // products section
     public function products()
 

@@ -200,6 +200,20 @@ class Chart extends CI_Controller
 
     }
 
+    public function income_payment_method()
+    {
+        $type = $this->input->post('p');
+        $d1 = $this->input->post('p_method');
+
+        $out = $this->chart->incomepayment($type, $d1);
+        $chart_array = array();
+        foreach ($out as $item) {
+            $chart_array[] = array('y' => $item['date'], 'a' => $item['credit']);
+        }
+        echo json_encode($chart_array);
+
+    }
+
     public function expenses()
     {
 

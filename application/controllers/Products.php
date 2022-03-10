@@ -462,7 +462,7 @@ from geopos_products $whr");
         $query = $this->db->get();
         $data['product'] = $query->row_array();
 
-        $this->db->select('geopos_invoices.id,geopos_invoices.tid,geopos_invoices.invoicedate,geopos_invoices.invoiceduedate,geopos_invoices.total,geopos_invoices.pmethod,geopos_invoices.notes_invoice,geopos_invoices.refer,geopos_invoices.status,geopos_customers.name, geopos_invoice_items.product,geopos_invoice_items.price as hargajual, geopos_products.fproduct_price as hargasupplier');
+        $this->db->select('geopos_invoices.id,geopos_invoices.tid,geopos_invoices.invoicedate,geopos_invoices.invoiceduedate,geopos_invoices.total,geopos_invoices.pmethod,geopos_invoices.notes_invoice,geopos_invoices.refer,geopos_invoices.status,geopos_customers.name, geopos_invoice_items.product,geopos_invoice_items.qty,geopos_invoice_items.price as hargajual, geopos_products.fproduct_price as hargasupplier');
         $this->db->from('geopos_invoices');
         $this->db->join('geopos_customers', 'geopos_invoices.csd=geopos_customers.id', 'left');
         $this->db->join('geopos_invoice_items', 'geopos_invoices.id=geopos_invoice_items.tid', 'left');

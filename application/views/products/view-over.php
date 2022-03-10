@@ -28,6 +28,7 @@
         <th>Customer Name</th>
         <th>Purchase Date</th>
         <th>Payment Method</th>
+        <th>Qty</th>
         <th>Status</th>
     </tr>
     </thead>
@@ -40,7 +41,8 @@
           <td>' . $no . '</td>
            <td>' .$row['name'] .'</td>
              <td>' .$row['invoicedate'] . '</td>
-          <td>' . $row['pmethod'] . '</td>';
+          <td>' . $row['pmethod'] . '</td>
+          <td>' . $row['qty'] . '</td>';
           if ($row['status'] == "paid") {
             echo '<td>Paid</td></tr>';
           } else if ($row['status'] == "partial") {
@@ -59,6 +61,7 @@
         <th>Customer Name</th>
         <th>Purchase Date</th>
         <th>Payment Method</th>
+        <th>Qty</th>
         <th>Status</th>
     </tr>
     </tfoot>

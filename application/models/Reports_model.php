@@ -395,6 +395,20 @@ class Reports_model extends CI_Model
         return $result;
     }
 
+
+    public function custompaymentmethodstatement($lid='', $sdate, $edate)
+    {
+        $this->db->select_sum('total');
+        $this->db->from('geopos_invoices');
+        $this->db->where('DATE(invoicedate) >=', $sdate);
+        $this->db->where('DATE(invoicedate) <=', $edate);
+        $this->db->where('pmethod', $lid);
+    
+        $query = $this->db->get();
+        $result = $query->row_array();
+        return $result;
+    }
+
     //products statement
 
 

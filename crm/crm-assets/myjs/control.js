@@ -381,6 +381,44 @@ function actionCaculate(actionurl) {
 
 }
 
+function actionCaculatePayment(actionurl) {
+
+    var errorNum = farmCheck();
+    if (errorNum > 0) {
+        $("#notify").removeClass("alert-success").addClass("alert-warning").fadeIn();
+        $("#notify .message").html("<strong>Error</strong>: It appears you have forgotten to complete something!");
+        $("html, body").animate({scrollTop: $('#notify').offset().top}, 1000);
+    } else {
+
+        $(".required").parent().removeClass("has-error");
+
+
+        $.ajax({
+
+            url: actionurl,
+            type: 'POST',
+            data: $("#payment_action").serialize(),
+            dataType: 'json',
+            success: function (data) {
+                $("#notify .message").html("<strong>" + data.status + "</strong>: " + data.message);
+                $("#notify").removeClass("alert-warning").addClass("alert-success").fadeIn();
+
+
+                $("html, body").animate({scrollTop: $('html, body').offset().top}, 200);
+              //  $("#product_action").remove();
+                $("#param1").html(data.param1);
+            },
+            error: function (data) {
+                $("#notify .message").html("<strong>" + data.status + "</strong>: " + data.message);
+                $("#notify").removeClass("alert-success").addClass("alert-warning").fadeIn();
+                $("html, body").animate({scrollTop: $('#notify').offset().top}, 1000);
+
+            }
+
+        });
+    }
+
+}
 
 
 

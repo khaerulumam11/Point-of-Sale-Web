@@ -43,6 +43,12 @@
                                 class="fa fa-address-book"></i> <?= $this->lang->line('Custom Range') . ' ' . $this->lang->line('Date') ?>
                     </button>
 
+                    <button type="button"
+                            class="update_chart btn btn-dark btn-min-width  btn-lg mr-1 mb-1"
+                            data-val="paymentmethod"><i
+                                class="fa fa-bars"></i> Payment Method
+                    </button>
+
                 </div>
                 <form id="chart_custom">
                     <div id="custom_c" style="display: none ">
@@ -77,6 +83,43 @@
 
                     </div>
                 </form>
+
+                <form id="chart_payment">
+                    <div id="custom_payment" style="display: none ">
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">Payment Method</label>
+                                    <select class="form-control" name="p_method" id="p_method">
+                                    <option value='Cash'><?php echo $this->lang->line('Cash') ?></option>
+                                    <option value='Bank'>Transfer Bank</option>
+                                    <option value='Tokopedia'>Tokopedia</option>
+                                    <option value='Lazada'>Lazada</option>
+                                    <option value='Shopee'>Shopee</option>
+                                    <option value='Blibli'>Blibli</option>
+                                    <option value='EDC BCA'>EDC BCA</option>
+                                    <option value='EDC Mandiri'>EDC Mandiri</option>
+                                    <option value='EDC BNI'>EDC BNI</option>
+
+                                </select>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1"><span class="mt-2"><br></span>
+                                <fieldset class="form-group">
+                                    <input type="hidden" name="p"
+                                           value="custom">
+                                    <button type="button" id="custom_update_payment"
+                                            class="btn btn-blue-grey">Submit
+                                    </button>
+                                </fieldset>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+
                 <div class="card-body">
                     <div class="card-block">
                         <div id="cat-chart" height="400"></div>
@@ -119,7 +162,9 @@
             var a_type = $(this).attr('data-val');
             if (a_type == 'custom') {
                 $('#custom_c').show();
-            } else {
+            } else if (a_type == 'paymentmethod'){
+                $('#custom_payment').show();
+            }else {
                 $.ajax({
                     url: baseurl + 'chart/income_update',
                     dataType: 'json',
@@ -143,6 +188,21 @@
                 dataType: 'json',
                 method: 'POST',
                 data: $('#chart_custom').serialize() + '&<?=$this->security->get_csrf_token_name()?>=<?=$this->security->get_csrf_hash(); ?>',
+                success: function (data) {
+                    draw_c(data);
+                }
+            });
+
+        });
+
+        
+        $(document).on('click', "#custom_update_payment", function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: baseurl + 'chart/income_payment_method',
+                dataType: 'json',
+                method: 'POST',
+                data: $('#chart_payment').serialize() + '&<?=$this->security->get_csrf_token_name()?>=<?=$this->security->get_csrf_hash(); ?>',
                 success: function (data) {
                     draw_c(data);
                 }

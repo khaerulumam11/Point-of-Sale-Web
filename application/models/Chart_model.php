@@ -263,6 +263,29 @@ class Chart_model extends CI_Model
         return $result;
     }
 
+    public function incomepayment($type, $c1 = '')
+    {
+        $this->db->select_sum('credit');
+        $this->db->select('date');
+        $this->db->from('geopos_transactions');
+        $this->db->group_by('date');
+        $month = date('Y-m');
+        $today = date('Y-m-d');
+        $this->db->where('method', $c1);
+        $this->db->where('type', 'Income');
+                            if ($this->aauth->get_user()->loc) {
+            $this->db->group_start();
+            $this->db->where('loc', $this->aauth->get_user()->loc);
+            if (BDATA) $this->db->or_where('loc', 0);
+            $this->db->group_end();
+        } elseif (!BDATA) {
+            $this->db->where('loc', 0);
+        }
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return $result;
+    }
+
     public function expenseschart($type, $c1 = '', $c2 = '')
     {
         switch ($type) {
