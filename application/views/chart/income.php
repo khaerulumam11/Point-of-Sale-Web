@@ -43,7 +43,7 @@
                                 class="fa fa-address-book"></i> <?= $this->lang->line('Custom Range') . ' ' . $this->lang->line('Date') ?>
                     </button>
 
-                    <button type="button"
+                    <button type="button" style="display:none"
                             class="update_chart btn btn-dark btn-min-width  btn-lg mr-1 mb-1"
                             data-val="paymentmethod"><i
                                 class="fa fa-bars"></i> Payment Method
@@ -69,6 +69,24 @@
                                            data-toggle="datepicker" autocomplete="false">
                                 </fieldset>
                             </div>
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">Payment Method</label>
+                                    <select class="form-control" name="p_method" id="p_method">
+                                         <option value='All'>All</option>
+                                    <option value='Cash'><?php echo $this->lang->line('Cash') ?></option>
+                                    <option value='Bank'>Transfer Bank</option>
+                                    <option value='Tokopedia'>Tokopedia</option>
+                                    <option value='Lazada'>Lazada</option>
+                                    <option value='Shopee'>Shopee</option>
+                                    <option value='Blibli'>Blibli</option>
+                                    <option value='EDC BCA'>EDC BCA</option>
+                                    <option value='EDC Mandiri'>EDC Mandiri</option>
+                                    <option value='EDC BNI'>EDC BNI</option>
+
+                                </select>
+                                </fieldset>
+                            </div>
                             <div class="col-xl-3 col-lg-6 col-md-12 mb-1"><span class="mt-2"><br></span>
                                 <fieldset class="form-group">
                                     <input type="hidden" name="p"
@@ -91,6 +109,7 @@
                                 <fieldset class="form-group">
                                     <label for="basicInput">Payment Method</label>
                                     <select class="form-control" name="p_method" id="p_method">
+                                         <option value='All'>All</option>
                                     <option value='Cash'><?php echo $this->lang->line('Cash') ?></option>
                                     <option value='Bank'>Transfer Bank</option>
                                     <option value='Tokopedia'>Tokopedia</option>
@@ -110,6 +129,120 @@
                                     <input type="hidden" name="p"
                                            value="custom">
                                     <button type="button" id="custom_update_payment"
+                                            class="btn btn-blue-grey">Submit
+                                    </button>
+                                </fieldset>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+
+
+                <form id="chart_this_year">
+                    <div id="custom_year" style="display: none ">
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">Payment Method</label>
+                                    <select class="form-control" name="p_method" id="p_method">
+                                         <option value='All'>All</option>
+                                    <option value='Cash'><?php echo $this->lang->line('Cash') ?></option>
+                                    <option value='Bank'>Transfer Bank</option>
+                                    <option value='Tokopedia'>Tokopedia</option>
+                                    <option value='Lazada'>Lazada</option>
+                                    <option value='Shopee'>Shopee</option>
+                                    <option value='Blibli'>Blibli</option>
+                                    <option value='EDC BCA'>EDC BCA</option>
+                                    <option value='EDC Mandiri'>EDC Mandiri</option>
+                                    <option value='EDC BNI'>EDC BNI</option>
+
+                                </select>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1"><span class="mt-2"><br></span>
+                                <fieldset class="form-group">
+                                    <input type="hidden" name="p"
+                                           value="year">
+                                    <button type="button" id="custom_update_this_year"
+                                            class="btn btn-blue-grey">Submit
+                                    </button>
+                                </fieldset>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+
+
+                <form id="chart_this_month">
+                    <div id="custom_month" style="display: none ">
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">Payment Method</label>
+                                    <select class="form-control" name="p_method" id="p_method">
+                                         <option value='All'>All</option>
+                                    <option value='Cash'><?php echo $this->lang->line('Cash') ?></option>
+                                    <option value='Bank'>Transfer Bank</option>
+                                    <option value='Tokopedia'>Tokopedia</option>
+                                    <option value='Lazada'>Lazada</option>
+                                    <option value='Shopee'>Shopee</option>
+                                    <option value='Blibli'>Blibli</option>
+                                    <option value='EDC BCA'>EDC BCA</option>
+                                    <option value='EDC Mandiri'>EDC Mandiri</option>
+                                    <option value='EDC BNI'>EDC BNI</option>
+
+                                </select>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1"><span class="mt-2"><br></span>
+                                <fieldset class="form-group">
+                                    <input type="hidden" name="p"
+                                           value="month">
+                                    <button type="button" id="custom_update_this_month"
+                                            class="btn btn-blue-grey">Submit
+                                    </button>
+                                </fieldset>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+
+
+                <form id="chart_this_week">
+                    <div id="custom_week" style="display: none ">
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">Payment Method</label>
+                                    <select class="form-control" name="p_method" id="p_method">
+                                          <option value='All'>All</option>
+                                    <option value='Cash'><?php echo $this->lang->line('Cash') ?></option>
+                                    <option value='Bank'>Transfer Bank</option>
+                                    <option value='Tokopedia'>Tokopedia</option>
+                                    <option value='Lazada'>Lazada</option>
+                                    <option value='Shopee'>Shopee</option>
+                                    <option value='Blibli'>Blibli</option>
+                                    <option value='EDC BCA'>EDC BCA</option>
+                                    <option value='EDC Mandiri'>EDC Mandiri</option>
+                                    <option value='EDC BNI'>EDC BNI</option>
+
+                                </select>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1"><span class="mt-2"><br></span>
+                                <fieldset class="form-group">
+                                    <input type="hidden" name="p"
+                                           value="week">
+                                    <button type="button" id="custom_update_this_week"
                                             class="btn btn-blue-grey">Submit
                                     </button>
                                 </fieldset>
@@ -162,8 +295,24 @@
             var a_type = $(this).attr('data-val');
             if (a_type == 'custom') {
                 $('#custom_c').show();
-            } else if (a_type == 'paymentmethod'){
-                $('#custom_payment').show();
+                $('#custom_year').hide();
+                $('#custom_month').hide();
+                $('#custom_week').hide();
+            } else if (a_type == 'year'){
+                $('#custom_year').show();
+                 $('#custom_c').hide();
+                $('#custom_month').hide();
+                $('#custom_week').hide();
+            } else if (a_type == 'month'){
+                $('#custom_month').show();
+                 $('#custom_c').hide();
+                $('#custom_year').hide();
+                $('#custom_week').hide();
+            }else if (a_type == 'week'){
+                $('#custom_week').show();
+                 $('#custom_c').hide();
+                $('#custom_year').hide();
+                $('#custom_month').hide();
             }else {
                 $.ajax({
                     url: baseurl + 'chart/income_update',
@@ -180,6 +329,48 @@
             }
         });
 
+
+        $(document).on('click', "#custom_update_this_year", function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: baseurl + 'chart/income_update',
+                dataType: 'json',
+                method: 'POST',
+                data: $('#chart_this_year').serialize() + '&<?=$this->security->get_csrf_token_name()?>=<?=$this->security->get_csrf_hash(); ?>',
+                success: function (data) {
+                    draw_c(data);
+                }
+            });
+
+        });
+
+        $(document).on('click', "#custom_update_this_month", function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: baseurl + 'chart/income_update',
+                dataType: 'json',
+                method: 'POST',
+                data: $('#chart_this_month').serialize() + '&<?=$this->security->get_csrf_token_name()?>=<?=$this->security->get_csrf_hash(); ?>',
+                success: function (data) {
+                    draw_c(data);
+                }
+            });
+
+        });
+
+        $(document).on('click', "#custom_update_this_week", function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: baseurl + 'chart/income_update',
+                dataType: 'json',
+                method: 'POST',
+                data: $('#chart_this_week').serialize() + '&<?=$this->security->get_csrf_token_name()?>=<?=$this->security->get_csrf_hash(); ?>',
+                success: function (data) {
+                    draw_c(data);
+                }
+            });
+
+        });
 
         $(document).on('click', "#custom_update_chart", function (e) {
             e.preventDefault();

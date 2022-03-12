@@ -66,7 +66,30 @@
                     </div>
                 </div>
 
+                <div class="form-group row">
 
+<label class="col-sm-3 col-form-label"
+       for="pay_method">Payment Method</label>
+
+<div class="col-sm-4">
+<select class="form-control" name="pay_method">
+                <option value='All'>All</option>
+                <option value='Cash'><?php echo $this->lang->line('Cash') ?></option>
+                <option value='Bank'>Transfer Bank</option>
+                <option value='Tokopedia'>Tokopedia</option>
+                <option value='Lazada'>Lazada</option>
+                <option value='Shopee'>Shopee</option>
+                <option value='Blibli'>Blibli</option>
+                <option value='EDC BCA'>EDC BCA</option>
+                <option value='EDC Mandiri'>EDC Mandiri</option>
+                <option value='EDC BNI'>EDC BNI</option>
+
+</select>
+
+</div>
+</div>
+
+                
                 <div class="form-group row">
 
                     <label class="col-sm-3 control-label"
@@ -107,7 +130,7 @@
         </form>
     </div>
 </div>
-<div class="card card-block">
+<div class="card card-block" style="display:none">
     <div class="card-body">
         <form method="post" id="payment_action" class="form-horizontal">
             <div class="grid_3 grid_4">

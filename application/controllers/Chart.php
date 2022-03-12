@@ -188,10 +188,11 @@ class Chart extends CI_Controller
     public function income_update()
     {
         $type = $this->input->post('p');
+        $paymentMethod = $this->input->post('p_method');
         $d1 = $this->input->post('sdate');
         $d2 = $this->input->post('edate');
 
-        $out = $this->chart->incomechart($type, $d1, $d2);
+        $out = $this->chart->incomechart($type, $d1, $d2,$paymentMethod);
         $chart_array = array();
         foreach ($out as $item) {
             $chart_array[] = array('y' => $item['date'], 'a' => $item['credit']);

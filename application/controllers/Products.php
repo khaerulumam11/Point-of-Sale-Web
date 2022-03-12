@@ -459,6 +459,7 @@ from geopos_products $whr");
             $this->db->where( 'geopos_warehouse.loc', 0 );
         }
 
+
         $query = $this->db->get();
         $data['product'] = $query->row_array();
 
@@ -467,6 +468,12 @@ from geopos_products $whr");
         $this->db->join('geopos_customers', 'geopos_invoices.csd=geopos_customers.id', 'left');
         $this->db->join('geopos_invoice_items', 'geopos_invoices.id=geopos_invoice_items.tid', 'left');
         $this->db->join('geopos_products', 'geopos_invoice_items.pid=geopos_products.pid', 'left');
+        if($this->input->post( 'sdate' ) != '' && $this->input->post( 'edate' ) != ''){
+            $day1 = datefordatabase($this->input->post( 'sdate' ));
+            $day2 = datefordatabase($this->input->post( 'edate' ));
+            $this->db->where('DATE(invoicedate) >=', $day1);
+            $this->db->where('DATE(invoicedate) <=', $day2);
+        }
         $this->db->where( 'geopos_products.pid', $pid );
         $query = $this->db->get();
         $data['purchase_list'] = $query->result_array();

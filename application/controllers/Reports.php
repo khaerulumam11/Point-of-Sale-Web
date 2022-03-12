@@ -484,6 +484,7 @@ class Reports extends CI_Controller
 
         if ($this->input->post('check')) {
             $lid = $this->input->post('pay_acc');
+            $pmethod = $this->input->post('pay_method');
             $sdate = datefordatabase($this->input->post('sdate'));
             $edate = datefordatabase($this->input->post('edate'));
 
@@ -496,9 +497,10 @@ class Reports extends CI_Controller
 
             $diff = $date2->diff($date1)->format("%a");
             if ($diff < 365) {
-                $income = $this->reports->customsalesstatement($lid, $sdate, $edate);
+                $income = $this->reports->customsalesstatement($lid, $sdate, $edate, $pmethod);
+                $incomepayment = $this->reports->custompaymentmethodstatement($pmethod, $sdate, $edate);
 
-                echo json_encode(array('status' => 'Success', 'message' => 'Calculated', 'param1' => '<hr> Sales between the dates is ' . amountExchange($income['total'], 0, $this->aauth->get_user()->loc) . ''));
+                echo json_encode(array('status' => 'Success', 'message' => 'Calculated', 'param1' => '<hr> Sales between the dates is ' . amountExchange($income['total'], 0, $this->aauth->get_user()->loc) . '<br><hr> Sales by '.$pmethod.' is '.amountExchange($incomepayment['total'], 0, $this->aauth->get_user()->loc).''));
             } else {
                 echo json_encode(array('status' => 'Error', 'message' => 'Date range should be within 365 days', 'param1' => ''));
             }

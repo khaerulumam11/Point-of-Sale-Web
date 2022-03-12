@@ -215,7 +215,7 @@ class Chart_model extends CI_Model
     }
 
 
-    public function incomechart($type, $c1 = '', $c2 = '')
+    public function incomechart($type, $c1 = '', $c2 = '',$pmethod='')
     {
         switch ($type) {
             case 'week':
@@ -249,6 +249,9 @@ class Chart_model extends CI_Model
         $today = date('Y-m-d');
         $this->db->where('DATE(date) >=', $day1);
         $this->db->where('DATE(date) <=', $day2);
+         if($pmethod!='' && $pmethod!='All'){
+            $this->db->where('method', $pmethod);
+        }
         $this->db->where('type', 'Income');
                             if ($this->aauth->get_user()->loc) {
             $this->db->group_start();

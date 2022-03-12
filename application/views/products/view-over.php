@@ -20,6 +20,39 @@
 
 <h5>Data Pembelian</h5>
 
+            <form id="chart_custom" style="margin-top:2%">
+                    <div id="custom_c">
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput"><?php echo $this->lang->line('From Date') ?></label>
+                                    <input type="date" class="form-control required date30"
+                                           placeholder="Start Date" name="sdate"
+                                           data-toggle="datepicker" autocomplete="false">
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="helpInputTop"><?php echo $this->lang->line('To Date') ?></label>
+                                    <input type="date" class="form-control required"
+                                           placeholder="End Date" name="edate"
+                                           data-toggle="datepicker" autocomplete="false">
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1" style="margin-top: 1%;"><span class="mt-2"><br></span>
+                                <fieldset class="form-group">
+                                    <input type="hidden" name="p"
+                                           value="custom">
+                                    <button type="button" id="custom_update_chart"
+                                            class="btn btn-blue-grey">Apply
+                                    </button>
+                                </fieldset>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
 <table id="productstable" class="table table-striped table-bordered zero-configuration" cellspacing="0"
        width="100%">
     <thead>
@@ -156,3 +189,22 @@
     </table>
 <?php } ?>
 <hr>
+
+
+<script type="text/javascript">
+     
+        $(document).on('click', "#custom_update_chart", function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: baseurl + 'products/view_over',
+                dataType: 'json',
+                method: 'POST',
+                data: $('#chart_custom').serialize() + '&<?=$this->security->get_csrf_token_name()?>=<?=$this->security->get_csrf_hash(); ?>',
+                success: function (data) {
+                    draw_c(data);
+                }
+            });
+
+        });
+
+    </script>
